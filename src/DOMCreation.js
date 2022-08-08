@@ -11,14 +11,15 @@ export function addProject(projectName) {
     newProject.append(projectHeading);
 }
 
-export function borderOnClick() {
+export function addTask(taskName) {
 
-    const projects = [...document.querySelectorAll('.project')];
+    const tasks = document.querySelector('.tasks');
+    const newTask = document.createElement('div');
+    newTask.className = 'task';
 
-    projects.forEach(project => {
-        project.addEventListener('click', (e) => {
-            projects.forEach(e => e.classList.remove('active'));
-            project.classList.add('active');
-        });
-    });
+    const taskTitle = document.createElement('h3');
+    taskTitle.innerText = taskName;
+
+    tasks.append(newTask);
+    newTask.append(taskTitle);
 }

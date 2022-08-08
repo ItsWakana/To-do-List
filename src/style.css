@@ -7,6 +7,10 @@
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
     margin-top: 25px;
     height: 100vh;
 }
@@ -15,14 +19,12 @@ body {
 }
 
 #container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 25px;
     height: 100%;
 }
 
-.projects {
+.projects,
+.tasks {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -33,18 +35,63 @@ body {
 
 .projects > .project {
     display: flex;
-    flex: 1;
+    flex-shrink: 0;
     align-items: center;
     padding-left: 20px;
     background-color: red;
-    height: 25%;
+    height: 15%;
+}
+
+.tasks > .task {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding-left: 20px;
+    background-color: green;
+    height: 50%;
 }
 
 .project.active {
     border: solid 2px black;
 }
-.tasks {
-    background-color: grey;
-    width: 300px;
-    height: 30%;
+
+.modal {
+    position: fixed;
+    transform: scale(0);
+    top: 30%;
+    width: 50%;
+    height: 50%;
+    background-color: blue;
+    transition: transform 250ms;
+    z-index: 10;
+}
+
+.modal.active {
+    transform: scale(1);
+}
+
+.task-form {
+    padding: 25px 25px;
+}
+
+.task-form .inner {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0, .5);
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
 }
