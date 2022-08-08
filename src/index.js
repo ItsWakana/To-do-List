@@ -1,10 +1,12 @@
 import './style.css';
+import {addProject} from './addProjectDOM';
+import { borderOnClick } from './addProjectDOM';
 
-const projects = [...document.querySelectorAll('.project')];
+const createProject = document.querySelector('.create');
 
-projects.forEach(project => {
-    project.addEventListener('click', (e) => {
-        projects.forEach(e => e.classList.remove('active'));
-        project.classList.add('active');
-    });
+createProject.addEventListener('click', () => {
+    addProject('Project 3');
+    borderOnClick();
 });
+
+
