@@ -12,17 +12,33 @@
             <button class="create">Create Project</button>
         </div>
         <div class="projects">
-            <div class="project">
-                <h3>Project 1</h3>
-            </div>
-            <div class="project">
-                <h3>Project 2</h3>
-            </div>
         </div>
+        <button class="add-task">Add task</button>
         <div class="tasks">
-            <button class="add-task">Add task</button>
         </div>
     </div>
+
+    <div class="modal task-form">
+        <form class="inner">
+            <input type="text" name="title" id="title" placeholder="Title">
+            <textarea name="desc" id="desc" placeholder="Brief description of task"></textarea>
+           <div class="priority">
+                <label for="priority1">1</label>
+                <input type="radio" name="priority" id="priority1">
+                <label for="priority1">2</label>
+                <input type="radio" name="priority" id="priority2">
+                <label for="priority1">3</label>
+                <input type="radio" name="priority" id="priority3">
+                <label for="priority1">4</label>
+                <input type="radio" name="priority" id="priority4">
+                <label for="priority1">5</label>
+                <input type="radio" name="priority" id="priority5">
+            </div>
+            <button class="submit">Add the Task</button>
+        </form>
+    </div>
+
+    <div id="overlay"></div>
 
     <script src="./main.js"></script>
 </body>
