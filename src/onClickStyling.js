@@ -10,12 +10,16 @@ export function borderOnClick() {
     });
 }
 
-export const openModal = (modal,overlay) => {
+export const openModal = () => {
+    const modal = document.querySelector('.modal');
+    const overlay = document.getElementById('overlay');
     modal.classList.add('active');
     overlay.classList.add('active');
 }
 
-export const closeModal = (modal,overlay) => {
+export const closeModal = () => {
+    const modal = document.querySelector('.modal');
+    const overlay = document.getElementById('overlay');
     modal.classList.remove('active');
     overlay.classList.remove('active');
 }

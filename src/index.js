@@ -1,28 +1,31 @@
 import './style.css';
-import {addProject} from './DOMCreation';
-import {addTask} from './DOMCreation';
-import { borderOnClick } from './onClickStyling';
-import { openModal } from './onClickStyling';
-import { closeModal } from './onClickStyling';
+import { addProjectToDOM, renderDropDown, addTaskToDOM } from './DOMCreation';
+import { borderOnClick, openModal, closeModal } from './onClickStyling';
+import { createTask, pushTaskToArray, Project } from './projectLogic';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
-
+const submitTask = document.querySelector('.submit');
 let projectNumber = 0;
+
+const projects = [];
 
 createProject.addEventListener('click', () => {
     projectNumber++;
-    addProject(`Project ${projectNumber}`);
+    addProjectToDOM(`Project ${projectNumber}`);
+    const projectObj = Project(`Project ${projectNumber}`, projectNumber);
+    projects.push(projectObj);
+    console.log(projects);
     borderOnClick();
+    renderDropDown(projects, projectNumber);
 });
 
-taskButton.addEventListener('click', () => {
-    const modal = document.querySelector('.modal');
-    const overlay = document.getElementById('overlay');
-    openModal(modal, overlay);
+taskButton.addEventListener('click', openModal)
+overlay.addEventListener('click', closeModal)
 
-    overlay.addEventListener('click', () => {
-        closeModal(modal, overlay);
-    });
-
+submitTask.addEventListener('click', (e) => {
+    e.preventDefault();
+    const task = createTask(projectNumber);
+    console.log(task);
+    closeModal();
 });

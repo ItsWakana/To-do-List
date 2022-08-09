@@ -1,4 +1,4 @@
-export function addProject(projectName) {
+export function addProjectToDOM(projectName) {
 
     const projects = document.querySelector('.projects');
     const newProject = document.createElement('div');
@@ -11,7 +11,7 @@ export function addProject(projectName) {
     newProject.append(projectHeading);
 }
 
-export function addTask(taskName) {
+export function addTaskToDOM(taskName) {
 
     const tasks = document.querySelector('.tasks');
     const newTask = document.createElement('div');
@@ -22,4 +22,16 @@ export function addTask(taskName) {
 
     tasks.append(newTask);
     newTask.append(taskTitle);
+}
+
+export function renderDropDown(array, arrayNumber) {
+    const dropDownMenu = document.getElementById('project');
+
+    if (array.length === 0) return;
+
+    const option = document.createElement('option');
+    option.value = arrayNumber; 
+    option.innerText = `Project ${arrayNumber}`;
+    dropDownMenu.append(option);
+
 }
