@@ -10,10 +10,10 @@ export const createTask = (id) => {
 }
 
 
-export const Project = (title, id, task) => {
+export const Project = (title, id) => {
 
 
-    return { title, id, tasks: {task} } 
+    return { title, id, tasks: {} } 
 
 }
 

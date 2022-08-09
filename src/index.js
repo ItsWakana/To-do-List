@@ -15,7 +15,7 @@ createProject.addEventListener('click', () => {
     addProjectToDOM(`Project ${projectNumber}`);
     const projectObj = Project(`Project ${projectNumber}`, projectNumber);
     projects.push(projectObj);
-    console.log(projects);
+    // console.log(projects);
     borderOnClick();
     renderDropDown(projects, projectNumber);
 });
@@ -26,6 +26,13 @@ overlay.addEventListener('click', closeModal)
 submitTask.addEventListener('click', (e) => {
     e.preventDefault();
     const task = createTask(projectNumber);
-    console.log(task);
+
+    projects.forEach(project => {
+        if (task.id === project.id) {
+            console.log(task);
+            console.log(project);
+        }
+    });
+    // console.log(task);
     closeModal();
 });
