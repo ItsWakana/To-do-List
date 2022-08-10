@@ -34,8 +34,7 @@ submitTask.addEventListener('click', (e) => {
         }
 
     });
-    taskToDOMOnClick(projects,task.title, addTaskToDOM);
+    taskToDOMOnClick(task.title, addTaskToDOM);
 
-    console.log(projects);
     closeModal();
 });

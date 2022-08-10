@@ -11,11 +11,13 @@ export function addProjectToDOM(projectName) {
     newProject.append(projectHeading);
 }
 
-export function taskToDOMOnClick(projects,task, addDOMFunc) {
+export function taskToDOMOnClick(task, addDOMElements) {
+
+    const projects = [...document.querySelectorAll('.project')];
 
     projects.forEach(project => {
         project.addEventListener('click', () => {
-            addDOMFunc(task);
+            addDOMElements(task);
         });
     });
 }
