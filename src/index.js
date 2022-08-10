@@ -6,8 +6,8 @@ import { createTask, pushTaskToArray, Project } from './projectLogic';
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
 const submitTask = document.querySelector('.submit');
-let projectNumber = 0;
 
+let projectNumber = 0;
 const projects = [];
 
 createProject.addEventListener('click', () => {
@@ -15,7 +15,6 @@ createProject.addEventListener('click', () => {
     addProjectToDOM(`Project ${projectNumber}`);
     const projectObj = Project(`Project ${projectNumber}`, projectNumber);
     projects.push(projectObj);
-    // console.log(projects);
     borderOnClick();
     renderDropDown(projects, projectNumber);
 });
@@ -28,11 +27,11 @@ submitTask.addEventListener('click', (e) => {
     const task = createTask(projectNumber);
 
     projects.forEach(project => {
-        if (task.id === project.id) {
-            console.log(task);
+        if (task.projectParent === project.title) {
+            project.tasks = { ...project.tasks, [task.id]: task };
             console.log(project);
         }
     });
-    // console.log(task);
+
     closeModal();
 });
