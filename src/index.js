@@ -1,7 +1,7 @@
 import './style.css';
-import { addProjectToDOM, renderDropDown, addTaskToDOM } from './DOMCreation';
+import { addProjectToDOM, renderDropDown, taskToDOMOnClick, addTaskToDOM } from './DOMCreation';
 import { borderOnClick, openModal, closeModal } from './onClickStyling';
-import { createTask, pushTaskToArray, Project } from './projectLogic';
+import { createTask, taskIncrementor, Project } from './projectLogic';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
@@ -24,14 +24,18 @@ overlay.addEventListener('click', closeModal)
 
 submitTask.addEventListener('click', (e) => {
     e.preventDefault();
-    const task = createTask(projectNumber);
+    const task = createTask();
 
     projects.forEach(project => {
-        if (task.projectParent === project.title) {
-            project.tasks = { ...project.tasks, [task.id]: task };
-            console.log(project);
-        }
-    });
 
+        
+        if (task.projectParent === project.title) {
+            project.tasks = { ...project.tasks, [task.title]: task };
+        }
+
+    });
+    taskToDOMOnClick(projects,task.title, addTaskToDOM);
+
+    console.log(projects);
     closeModal();
 });
