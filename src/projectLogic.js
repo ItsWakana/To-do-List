@@ -8,12 +8,14 @@ export const createTask = () => {
     const projectSelection = document.getElementById('project');
     const projectParent = projectSelection.options[projectSelection.selectedIndex].text;
 
-    return { title, description, priority, projectParent }
+    let id = taskIncrementor;
+
+    return { id, title, description, priority, projectParent }
 }
 
 export let projectNumCount = 0;
 export const Project = (title, id) => {
 
-    return { title, id } 
+    return { title, id, tasks : [] } 
 
 }

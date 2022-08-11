@@ -29,13 +29,14 @@ export function taskToDOMOnClick(projectObjArray) {
     const projectElements = [...document.querySelectorAll('.project')];
     const arrIndex = projectElements.length - 1;
 
-    // const taskArray = [];
 
     const projectObj = projectObjArray[arrIndex];
     projectElements[arrIndex].addEventListener('click', () => {
-        // taskArray.push(projectObj.tasks)
-        const t = projectObj.tasks
         console.log(projectObj);
+        const { tasks: title } = projectObj;
+        // console.log(title);
+        
+
         // addTaskToDOM(projectObj.task);
     });
 }
