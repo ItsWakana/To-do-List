@@ -32,8 +32,13 @@ export function taskToDOMOnClick(projectObjArray) {
 
     const projectObj = projectObjArray[arrIndex];
     projectElements[arrIndex].addEventListener('click', () => {
-        console.log(projectObj);
-        const { tasks: title } = projectObj;
+        // console.log(projectObj);
+        const { tasks } = projectObj;
+        // const { tasks: [{task: task} ] } = projectObj;
+        tasks.forEach(task => console.log(task.title));
+        // console.log(tasks);
+        // console.log(task.title);
+
         // console.log(title);
         
 

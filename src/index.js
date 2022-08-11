@@ -31,7 +31,8 @@ submitTask.addEventListener('click', (e) => {
     projects.forEach(project => {
         if (task.projectParent === project.title) {
             // project.tasks = { ...project.tasks, [task.title]: task };
-            project.tasks.push({ 'task': task });
+            // project.tasks.push({ 'task': task });
+            project.tasks.push(task);
 
 
         }
