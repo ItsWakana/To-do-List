@@ -11,29 +11,47 @@ export function addProjectToDOM(projectName) {
     newProject.append(projectHeading);
 }
 
-export function taskToDOMOnClick(projectObjArray,task, addDOMElements) {
+export function taskToDOMOnClick(projectObjArray) {
 
-    const projects = [...document.querySelectorAll('.project')];
+    function addTaskToDOM(taskName) {
 
-    projects.forEach((project,i) => {
-        project.addEventListener('click', () => {
-            console.log(projectObjArray[i]);
-        });
+        const tasks = document.querySelector('.tasks');
+        const newTask = document.createElement('div');
+        newTask.className = 'task';
+    
+        const taskTitle = document.createElement('h3');
+        taskTitle.innerText = taskName;
+    
+        tasks.append(newTask);
+        newTask.append(taskTitle);
+    }
+
+    const projectElements = [...document.querySelectorAll('.project')];
+    const arrIndex = projectElements.length - 1;
+
+    // const taskArray = [];
+
+    const projectObj = projectObjArray[arrIndex];
+    projectElements[arrIndex].addEventListener('click', () => {
+        // taskArray.push(projectObj.tasks)
+        const t = projectObj.tasks
+        console.log(projectObj);
+        // addTaskToDOM(projectObj.task);
     });
 }
 
-export function addTaskToDOM(taskName) {
+// export function addTaskToDOM(taskName) {
 
-    const tasks = document.querySelector('.tasks');
-    const newTask = document.createElement('div');
-    newTask.className = 'task';
+//     const tasks = document.querySelector('.tasks');
+//     const newTask = document.createElement('div');
+//     newTask.className = 'task';
 
-    const taskTitle = document.createElement('h3');
-    taskTitle.innerText = taskName;
+//     const taskTitle = document.createElement('h3');
+//     taskTitle.innerText = taskName;
 
-    tasks.append(newTask);
-    newTask.append(taskTitle);
-}
+//     tasks.append(newTask);
+//     newTask.append(taskTitle);
+// }
 
 export function renderDropDown(array, arrayNumber) {
     const dropDownMenu = document.getElementById('project');

@@ -11,13 +11,9 @@ export const createTask = () => {
     return { title, description, priority, projectParent }
 }
 
-export let projectNumCount = 1;
+export let projectNumCount = 0;
 export const Project = (title, id) => {
-    
-    const incrementProjectNo = () => {
-        projectNumCount++;
-    }
 
-    return { title, id, incrementProjectNo } 
+    return { title, id } 
 
 }

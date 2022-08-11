@@ -11,12 +11,13 @@ const submitTask = document.querySelector('.submit');
 const projects = [];
 
 createProject.addEventListener('click', () => {
+    projectNumCount++;
     addProjectToDOM(`Project ${projectNumCount}`);
     const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
-    projectObj.incrementProjectNo();
     projects.push(projectObj);
     borderOnClick();
     renderDropDown(projects, projectNumCount);
+    taskToDOMOnClick(projects);
 });
 
 taskButton.addEventListener('click', openModal)
@@ -29,10 +30,12 @@ submitTask.addEventListener('click', (e) => {
     projects.forEach(project => {
         if (task.projectParent === project.title) {
             project.tasks = { ...project.tasks, [task.title]: task };
+            console.log(project);
         }
     });
 
     closeModal();
+
 });
 
 // taskToDOMOnClick(projects, task.title, addTaskToDOM);
