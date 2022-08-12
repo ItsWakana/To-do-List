@@ -41,30 +41,36 @@ export function taskToDOMOnClick(projectObjArray) {
             element.removeChild(element.lastChild);
         }
     }
-
+    //get the latest project
     const projectElements = [...document.querySelectorAll('.project')];
-    const arrIndex = projectElements.length - 1;
+    const lastIndex = projectElements.length - 1;
 
-
-    const projectObj = projectObjArray[arrIndex];
-    projectElements[arrIndex].addEventListener('click', () => {
+    //apply event listener to the newest project, which removes the previous tasks
+    const projectObj = projectObjArray[lastIndex];
+    projectElements[lastIndex].addEventListener('click', () => {
         const taskElements = document.querySelector('.tasks');
         removeDOMTasks(taskElements);
+
+    //get variable of the tasks in that project
         const { tasks } = projectObj;
         // const { tasks: [{task: task} ] } = projectObj;
+
+    //for each task inside the object we append it to the DOM
         tasks.forEach(task => addTaskToDOM(task.title,task.dueDate));
+
+    //loop through all our task details buttons and render the task details on click
         const taskSelection = document.querySelector('.tasks');
         const taskDetailsBtn = taskSelection.querySelectorAll('button');
         taskDetailsBtn.forEach(btn => {
             btn.addEventListener('click', () => {
-                renderTaskDetails();
+                const container = document.querySelector('.task-details');
+                renderTaskDetails(container);
             });
         });
     });
 }
 
-function renderTaskDetails() {
-    const container = document.querySelector('.task-details');
+function renderTaskDetails(container) {
     openModal(container);
 
     const heading = document.createElement('h3');
