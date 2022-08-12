@@ -13,17 +13,29 @@ export function addProjectToDOM(projectName) {
 
 export function taskToDOMOnClick(projectObjArray) {
 
-    function addTaskToDOM(taskName) {
+    function addTaskToDOM(title,desc) {
 
         const tasks = document.querySelector('.tasks');
         const newTask = document.createElement('div');
         newTask.className = 'task';
     
         const taskTitle = document.createElement('h3');
-        taskTitle.innerText = taskName;
+        taskTitle.innerText = title;
+
+        const titleDesc = document.createElement('p');
+        titleDesc.innerText = desc;
+        
     
         tasks.append(newTask);
-        newTask.append(taskTitle);
+        newTask.append(taskTitle,titleDesc);
+    }
+
+    function removeDOMTasks() {
+        const tasks = document.querySelector('.tasks');
+
+        while (tasks.hasChildNodes()) {
+            tasks.removeChild(tasks.lastChild);
+        }
     }
 
     const projectElements = [...document.querySelectorAll('.project')];
@@ -32,32 +44,12 @@ export function taskToDOMOnClick(projectObjArray) {
 
     const projectObj = projectObjArray[arrIndex];
     projectElements[arrIndex].addEventListener('click', () => {
-        // console.log(projectObj);
+        removeDOMTasks();
         const { tasks } = projectObj;
         // const { tasks: [{task: task} ] } = projectObj;
-        tasks.forEach(task => console.log(task.title));
-        // console.log(tasks);
-        // console.log(task.title);
-
-        // console.log(title);
-        
-
-        // addTaskToDOM(projectObj.task);
+        tasks.forEach(task => addTaskToDOM(task.title,task.description));
     });
 }
-
-// export function addTaskToDOM(taskName) {
-
-//     const tasks = document.querySelector('.tasks');
-//     const newTask = document.createElement('div');
-//     newTask.className = 'task';
-
-//     const taskTitle = document.createElement('h3');
-//     taskTitle.innerText = taskName;
-
-//     tasks.append(newTask);
-//     newTask.append(taskTitle);
-// }
 
 export function renderDropDown(array, arrayNumber) {
     const dropDownMenu = document.getElementById('project');
