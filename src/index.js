@@ -21,8 +21,16 @@ createProject.addEventListener('click', () => {
 
 });
 
-taskButton.addEventListener('click', openModal)
-overlay.addEventListener('click', closeModal)
+taskButton.addEventListener('click', () => {
+    const modal = document.querySelector('.task-form');
+    openModal(modal);
+});
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        closeModal(modal);
+    })
+});
 
 submitTask.addEventListener('click', (e) => {
     e.preventDefault();
@@ -30,7 +38,6 @@ submitTask.addEventListener('click', (e) => {
 
     projects.forEach(project => {
         if (task.projectParent === project.title) {
-            console.log(project);
             // project.tasks = { ...project.tasks, [task.title]: task };
             // project.tasks.push({ 'task': task });
             project.tasks.push(task);
@@ -38,10 +45,7 @@ submitTask.addEventListener('click', (e) => {
 
         }
     });
-
-    closeModal();
+    const modal = document.querySelector('.task-form');
+    closeModal(modal);
 
 });
-
-// taskToDOMOnClick(projects, task.title, addTaskToDOM);
-
