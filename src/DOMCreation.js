@@ -13,7 +13,7 @@ export function addProjectToDOM(projectName) {
 
 export function taskToDOMOnClick(projectObjArray) {
 
-    function addTaskToDOM(title,desc) {
+    function addTaskToDOM(title, date) {
 
         const tasks = document.querySelector('.tasks');
         const newTask = document.createElement('div');
@@ -22,12 +22,16 @@ export function taskToDOMOnClick(projectObjArray) {
         const taskTitle = document.createElement('h3');
         taskTitle.innerText = title;
 
-        const titleDesc = document.createElement('p');
-        titleDesc.innerText = desc;
-        
+        const dueDate = document.createElement('p');
+        dueDate.innerText = date;
+
+        const detailsButton = document.createElement('button');
+        detailsButton.innerText = 'Details';
+        detailsButton.className = 'details';
+
     
         tasks.append(newTask);
-        newTask.append(taskTitle,titleDesc);
+        newTask.append(taskTitle,dueDate,detailsButton);
     }
 
     function removeDOMTasks() {
@@ -47,7 +51,7 @@ export function taskToDOMOnClick(projectObjArray) {
         removeDOMTasks();
         const { tasks } = projectObj;
         // const { tasks: [{task: task} ] } = projectObj;
-        tasks.forEach(task => addTaskToDOM(task.title,task.description));
+        tasks.forEach(task => addTaskToDOM(task.title,task.dueDate));
     });
 }
 

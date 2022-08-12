@@ -72,6 +72,14 @@ body {
     border: solid 4px black;
 }
 
+.tasks > .task .details {
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 7px;
+    background-color: var(--prjct-tsk-background-clr);
+}
+
 .project.active {
     border: solid 4px var(--main-font-clr);
 }
