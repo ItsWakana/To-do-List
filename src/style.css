@@ -88,18 +88,26 @@ body {
 
 .task-details {
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    /* gap: 5px; */
     top: 30%;
     width: 60%;
     height: 30%;
     background-color: white;
+    padding: 20px 0 0 20px;
+    border-radius: 8px;
     transform: scale(0);
+}
+
+.task-details > h3 {
+    margin: 10px 0 10px 0;
 }
 
 .task-details.active {
     position: fixed;
     top: 30%;
     width: 60%;
-    height: 30%;
     background-color: white;
     transform: scale(1);
 }
@@ -112,7 +120,7 @@ body {
     position: fixed;
     transform: scale(0);
     top: 30%;
-    width: 50%;
+    width: 62%;
     height: 50%;
     background-color: white;
     /* transition: transform 250ms; */

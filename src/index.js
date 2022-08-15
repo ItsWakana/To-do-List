@@ -1,6 +1,6 @@
 import './style.css';
 import { addProjectToDOM, renderDropDown, 
-         addTaskToDOM, taskToDOMOnClick } from './DOMCreation';
+         addTaskToDOM, taskToDOMOnClick, renderTaskOnProjClick } from './DOMCreation';
 import { borderOnClick, openModal, closeModal } from './onClickStyling';
 import { createTask, Project, projectNumCount, taskIncrementor } from './projectLogic';
 
@@ -17,7 +17,7 @@ createProject.addEventListener('click', () => {
     projects.push(projectObj);
     borderOnClick();
     renderDropDown(projects, projectNumCount);
-    taskToDOMOnClick(projects);
+    renderTaskOnProjClick(projects);
 
 });
 
