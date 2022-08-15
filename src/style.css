@@ -78,9 +78,11 @@ body {
     border: solid 4px var(--background-clr);
 }
 
-.tasks > .task .details-btn {
+.tasks > .task .details-btn,
+.task-details > .close-button {
     border: none;
     padding: 10px;
+    margin-top: 10px;
     font-weight: bold;
     border-radius: 7px;
     background-color: var(--prjct-tsk-background-clr);
@@ -108,8 +110,13 @@ body {
     position: fixed;
     top: 30%;
     width: 60%;
+    height: 53%;
     background-color: white;
     transform: scale(1);
+}
+
+.task-details > .close-button {
+    width: 64px;
 }
 
 .project.active {

@@ -94,14 +94,19 @@ function renderTaskDetails(container,obj,indexOfTask) {
 
     const priority = document.createElement('p');
     priority.innerText = tasks[indexOfTask].priority;
-    
-    
 
+    const exitBtn = document.createElement('button');
+    exitBtn.innerText = 'Close';
+    exitBtn.className = 'close-button';
 
+    exitBtn.addEventListener('click', () => {
+        closeModal(container);
+    });
+    
     openModal(container);
 
     container.append(titleHead,title,descHead,desc,
-        dateHead,date,priorityHead,priority);
+        dateHead,date,priorityHead,priority, exitBtn);
 }
 
 
