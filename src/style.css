@@ -4,6 +4,9 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+
 }
 
 :root {
@@ -20,11 +23,8 @@ body {
     background-color: var(--background-clr);
     align-items: center;
     position: relative;
-    margin-top: 25px;
+    margin-top: 50px;
     height: 100vh;
-}
-:root {
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 #container {
@@ -79,13 +79,15 @@ body {
 }
 
 .tasks > .task .details-btn,
-.task-details > .close-button {
+.task-details > .close-button,
+.submit {
     border: none;
     padding: 10px;
     margin-top: 10px;
     font-weight: bold;
     border-radius: 7px;
     background-color: var(--prjct-tsk-background-clr);
+    cursor: pointer;
 }
 
 .task-details {
@@ -94,10 +96,9 @@ body {
     flex-direction: column;
     /* gap: 5px; */
     top: 30%;
-    width: 60%;
-    height: 30%;
+    max-width: 60%;
     background-color: white;
-    padding: 20px 0 0 20px;
+    padding: 20px;
     border-radius: 8px;
     transform: scale(0);
 }
@@ -109,8 +110,8 @@ body {
 .task-details.active {
     position: fixed;
     top: 30%;
-    width: 60%;
-    height: 53%;
+    /* width: 40%;
+    height: 60%; */
     background-color: white;
     transform: scale(1);
 }
@@ -127,10 +128,9 @@ body {
     position: fixed;
     transform: scale(0);
     top: 30%;
-    width: 62%;
-    height: 50%;
     background-color: white;
-    /* transition: transform 250ms; */
+    border-radius: 8px;
+    transition: transform 250ms;
     z-index: 10;
 }
 
@@ -138,14 +138,26 @@ body {
     transform: scale(1);
 }
 
+
 .task-form {
     padding: 25px 25px;
+    font-weight: bold;
 }
 
 .task-form .inner {
     display: flex;
     flex-direction: column;
     gap: 15px;
+}
+
+.task-form input::placeholder,
+.task-form textarea::placeholder {
+    font-weight: bold;
+}
+
+.task-form textarea {
+    resize: none;
+    height: 100px;
 }
 
 #overlay {
@@ -172,6 +184,7 @@ body {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     font-size: 14px;
+    width: 135px;
     font-weight: bold;
     box-shadow: 0px 0px 0px white;
     transition: box-shadow 500ms;
