@@ -43,16 +43,14 @@ function addTaskToDOM(title, date) {
 export function renderTaskOnProjClick(projectArray) {
 
     const projectElements = [...document.querySelectorAll('.project')];
-    const lastIndex = projectElements.length - 1;
 
-    const projectObj = projectArray[lastIndex];
-    projectElements[lastIndex].addEventListener('click', () => {
+    const projectObj = projectArray.at(-1);
+    projectElements.at(-1).addEventListener('click', () => {
         const taskElements = document.querySelector('.tasks');
         removeDOMTasks(taskElements);
 
     //get variable of the tasks in that project
         const { tasks } = projectObj;
-        // const { tasks: [{task: task} ] } = projectObj;
 
     //for each task inside the object we append it to the DOM
         tasks.forEach(task => addTaskToDOM(task.title,task.dueDate));
