@@ -34,6 +34,16 @@ overlay.addEventListener('click', () => {
 
 submitTask.addEventListener('click', (e) => {
     e.preventDefault();
+    const modal = document.querySelector('.task-form');
+
+
+    const projectElements = [...document.querySelectorAll('.project')];
+
+    if (projectElements.length == 0) {
+        alert('You must create a project first');
+        closeModal(modal);
+        return;
+    }
     const task = createTask();
 
     projects.forEach(project => {
@@ -45,7 +55,6 @@ submitTask.addEventListener('click', (e) => {
 
         }
     });
-    const modal = document.querySelector('.task-form');
     closeModal(modal);
 
 });
