@@ -47,7 +47,9 @@ function addTaskToDOM(title, date) {
     tasks.append(newTask);
     newTask.append(taskTitle,dueDate,btnContainer);
 }
-
+//on click of a project we loop through our tasks and render those to the task list
+//we then loop through the newly created task detail and delete buttons which run 
+//that functionality to either render the task details or delete that task obj.
 export function renderTaskOnProjClick(projectArray) {
 
     const projectElements = Array.from(document.querySelectorAll('.project'));
@@ -57,10 +59,8 @@ export function renderTaskOnProjClick(projectArray) {
         const taskElements = document.querySelector('.tasks');
         removeDOMTasks(taskElements);
 
-    //get variable of the tasks in that project
         const { tasks } = projectObj;
 
-    //for each task inside the object we append it to the DOM
         tasks.forEach(task => addTaskToDOM(task.title,task.dueDate));
 
     //loop through all our task details buttons and render the task details on click
@@ -79,7 +79,7 @@ export function renderTaskOnProjClick(projectArray) {
         deleteTaskBtn.forEach((btn, i) => {
             btn.addEventListener('click', () => {
                 allTasks[i].remove();
-                delete tasks[i];
+                tasks.splice(i, 1);
             });
         });
 
