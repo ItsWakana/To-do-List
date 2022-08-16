@@ -35,14 +35,22 @@ function addTaskToDOM(title, date) {
     detailsButton.innerText = 'Details';
     detailsButton.className = 'details-btn';
 
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerText = 'Delete';
+    deleteBtn.className = 'delete-button';
+
+    const btnContainer = document.createElement('div');
+    btnContainer.className = 'btn-container';
+
+    btnContainer.append(detailsButton, deleteBtn);
 
     tasks.append(newTask);
-    newTask.append(taskTitle,dueDate,detailsButton);
+    newTask.append(taskTitle,dueDate,btnContainer);
 }
 
 export function renderTaskOnProjClick(projectArray) {
 
-    const projectElements = [...document.querySelectorAll('.project')];
+    const projectElements = Array.from(document.querySelectorAll('.project'));
 
     const projectObj = projectArray.at(-1);
     projectElements.at(-1).addEventListener('click', () => {
@@ -57,7 +65,7 @@ export function renderTaskOnProjClick(projectArray) {
 
     //loop through all our task details buttons and render the task details on click
         const taskSelection = document.querySelector('.tasks');
-        const taskDetailsBtn = taskSelection.querySelectorAll('button');
+        const taskDetailsBtn = taskSelection.querySelectorAll('.details-btn');
         taskDetailsBtn.forEach((btn, i) => {
             btn.addEventListener('click', () => {
                 const container = document.querySelector('.task-details');
@@ -65,6 +73,16 @@ export function renderTaskOnProjClick(projectArray) {
                 renderTaskDetails(container,projectObj,i);
             });
         });
+
+        const allTasks = document.querySelectorAll('.task');
+        const deleteTaskBtn = taskSelection.querySelectorAll('.delete-button');
+        deleteTaskBtn.forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                allTasks[i].remove();
+                delete tasks[i];
+            });
+        });
+
     });
 }
 

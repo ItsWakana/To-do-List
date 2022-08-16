@@ -80,7 +80,8 @@ body {
 
 .tasks > .task .details-btn,
 .task-details > .close-button,
-.submit {
+.submit,
+.tasks > .task .delete-button {
     border: none;
     padding: 10px;
     margin-top: 10px;
@@ -88,6 +89,11 @@ body {
     border-radius: 7px;
     background-color: var(--prjct-tsk-background-clr);
     cursor: pointer;
+}
+
+.btn-container {
+    display: flex;
+    gap: 10px;
 }
 
 .task-details {

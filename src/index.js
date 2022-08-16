@@ -18,10 +18,11 @@ createProject.addEventListener('click', () => {
     borderOnClick();
     renderDropDown(projects, projectNumCount);
     renderTaskOnProjClick(projects);
-
 });
 
 taskButton.addEventListener('click', () => {
+    document.querySelector('input[id="title"]').value = '';
+    document.querySelector('textarea[id="desc"]').value = '';
     const modal = document.querySelector('.task-form');
     openModal(modal);
 });
@@ -51,8 +52,6 @@ submitTask.addEventListener('click', (e) => {
             // project.tasks = { ...project.tasks, [task.title]: task };
             // project.tasks.push({ 'task': task });
             project.tasks.push(task);
-
-
         }
     });
     closeModal(modal);
