@@ -1,8 +1,7 @@
 import './style.css';
-import { addProjectToDOM, renderDropDown, 
-         addTaskToDOM, taskToDOMOnClick, renderTaskOnProjClick } from './DOMCreation';
+import { addProjectToDOM, renderDropDown } from './DOMCreation';
 import { borderOnClick, openModal, closeModal } from './onClickStyling';
-import { createTask, Project, projectNumCount, taskIncrementor } from './projectLogic';
+import { createTask, Project, projectNumCount, renderTaskOnProjClick } from './projectLogic';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
@@ -17,7 +16,8 @@ createProject.addEventListener('click', () => {
     projects.push(projectObj);
     borderOnClick();
     renderDropDown(projects, projectNumCount);
-    renderTaskOnProjClick(projects);
+    projectObj.renderTask(projects);
+    // renderTaskOnProjClick(projects);
 });
 
 taskButton.addEventListener('click', () => {
@@ -54,6 +54,7 @@ submitTask.addEventListener('click', (e) => {
             project.tasks.push(task);
         }
     });
+
     closeModal(modal);
 
 });
