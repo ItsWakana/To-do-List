@@ -1,6 +1,6 @@
 import './style.css';
 import { addProjectToDOM, renderDropDown } from './DOMCreation';
-import { borderOnClick, openModal, closeModal } from './onClickStyling';
+import { openModal, closeModal } from './utilities';
 import { createTask, Project, projectNumCount, renderTaskOnProjClick } from './projectLogic';
 
 const createProject = document.querySelector('.create');
@@ -11,13 +11,15 @@ const projects = [];
 
 createProject.addEventListener('click', () => {
     projectNumCount++;
-    addProjectToDOM(`Project ${projectNumCount}`);
     const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
+    projectObj.renderProject(projectObj.title);
     projects.push(projectObj);
-    borderOnClick();
+    const elements = document.querySelectorAll('.project');
+    //each time we create a project it renders the added project to our drop down selector.
     renderDropDown(projects, projectNumCount);
-    projectObj.renderTask(projects);
-    // renderTaskOnProjClick(projects);
+    
+    
+
 });
 
 taskButton.addEventListener('click', () => {
@@ -49,8 +51,6 @@ submitTask.addEventListener('click', (e) => {
 
     projects.forEach(project => {
         if (task.projectParent === project.title) {
-            // project.tasks = { ...project.tasks, [task.title]: task };
-            // project.tasks.push({ 'task': task });
             project.tasks.push(task);
         }
     });

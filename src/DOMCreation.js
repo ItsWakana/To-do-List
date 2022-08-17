@@ -1,4 +1,4 @@
-import { closeModal, openModal } from "./onClickStyling";
+import { closeModal, openModal } from "./utilities";
 
 export function addProjectToDOM(projectName) {
 
@@ -11,6 +11,11 @@ export function addProjectToDOM(projectName) {
 
     projects.append(newProject);
     newProject.append(projectHeading);
+
+
+    newProject.addEventListener('click', () => {
+        console.log(`I am ${projectName}`);
+    });
 }
 
 export function removeDOMTasks(element) {
