@@ -1,32 +1,37 @@
 import { closeModal, openModal } from "./utilities";
+import { createTaskObj } from "./projectLogic";
 
-export function addProjectToDOM(projectName) {
+export function addProjectToDOM(obj) {
 
     const projects = document.querySelector('.projects');
     const newProject = document.createElement('div');
     newProject.className = 'project';
 
     const projectHeading = document.createElement('h3');
-    projectHeading.innerText = projectName;
+    projectHeading.innerText = obj.title;
 
     projects.append(newProject);
     newProject.append(projectHeading);
 
 
-    newProject.addEventListener('click', () => {
-        console.log(`I am ${projectName}`);
+    newProject.addEventListener('click', () => { 
+        const container = document.querySelector('.tasks');
+        clearPreviousTasks(container);
+        obj.renderTask();
     });
 }
 
-export function removeDOMTasks(element) {
+export function clearPreviousTasks(element) {
+
     while (element.hasChildNodes()) {
         element.removeChild(element.lastChild);
     }
 }
 
-export function addTaskToDOM(title, date) {
+export function addTaskToDOM(title, date, taskobj) {
 
     const tasks = document.querySelector('.tasks');
+
     const newTask = document.createElement('div');
     newTask.className = 'task';
 
@@ -46,6 +51,15 @@ export function addTaskToDOM(title, date) {
 
     const btnContainer = document.createElement('div');
     btnContainer.className = 'btn-container';
+
+    detailsButton.addEventListener('click', () => {
+        const container = document.querySelector('.task-details');
+        renderTaskDetails(container, taskobj);
+    });
+
+    deleteBtn.addEventListener('click', () => {
+        newTask.remove();
+    });
 
     btnContainer.append(detailsButton, deleteBtn);
 
@@ -72,8 +86,9 @@ export function addTaskToDOM(title, date) {
         //     });
         // });
 
-export function renderTaskDetails(container,obj,indexOfTask) {
-    const { tasks } = obj;
+export function renderTaskDetails(container,task) {
+
+    clearPreviousTasks(container);
 
     const titleHead = document.createElement('h3');
     const descHead = document.createElement('h3');
@@ -86,16 +101,16 @@ export function renderTaskDetails(container,obj,indexOfTask) {
     priorityHead.innerText = 'Priority:'
 
     const title = document.createElement('p');
-    title.innerText = tasks[indexOfTask].title;
+    title.innerText = task.title;
 
     const desc = document.createElement('p');
-    desc.innerText = tasks[indexOfTask].description;
+    desc.innerText = task.description;
 
     const date = document.createElement('p');
-    date.innerText = tasks[indexOfTask].dueDate;
+    date.innerText = task.dueDate;
 
     const priority = document.createElement('p');
-    priority.innerText = tasks[indexOfTask].priority;
+    priority.innerText = task.priority;
 
     const exitBtn = document.createElement('button');
     exitBtn.innerText = 'Close';
@@ -122,4 +137,17 @@ export function renderDropDown(array, arrayNumber) {
     option.innerText = `Project ${arrayNumber}`;
     dropDownMenu.append(option);
 
+}
+
+export function getUserInputFromDOM() {
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('desc').value;
+    const priority = document.querySelector('input[name="priority"]:checked').id;
+    const projectSelection = document.getElementById('project');
+    const projectParent = projectSelection.options[projectSelection.selectedIndex].text;
+
+    const dueDate = document.getElementById('date').value;
+    const taskObj = createTaskObj(title,description,priority,
+        projectSelection,projectParent,dueDate);
+    return taskObj;
 }

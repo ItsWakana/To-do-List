@@ -1,7 +1,7 @@
 import './style.css';
-import { addProjectToDOM, renderDropDown } from './DOMCreation';
-import { openModal, closeModal } from './utilities';
-import { createTask, Project, projectNumCount, renderTaskOnProjClick } from './projectLogic';
+import { addProjectToDOM, renderDropDown, getUserInputFromDOM } from './DOMCreation';
+import { openModal, closeModal, borderOnClick } from './utilities';
+import { Project, projectNumCount } from './projectLogic';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
@@ -12,14 +12,12 @@ const projects = [];
 createProject.addEventListener('click', () => {
     projectNumCount++;
     const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
-    projectObj.renderProject(projectObj.title);
-    projects.push(projectObj);
-    const elements = document.querySelectorAll('.project');
+    projectObj.addProject(projects,projectObj);
+    addProjectToDOM(projectObj);
+    borderOnClick();
     //each time we create a project it renders the added project to our drop down selector.
     renderDropDown(projects, projectNumCount);
-    
-    
-
+    console.log(projects);
 });
 
 taskButton.addEventListener('click', () => {
@@ -39,19 +37,16 @@ submitTask.addEventListener('click', (e) => {
     e.preventDefault();
     const modal = document.querySelector('.task-form');
 
-
-    const projectElements = [...document.querySelectorAll('.project')];
-
-    if (projectElements.length == 0) {
+    if (projects.length == 0) {
         alert('You must create a project first');
         closeModal(modal);
         return;
     }
-    const task = createTask();
+    const task = getUserInputFromDOM();
 
     projects.forEach(project => {
         if (task.projectParent === project.title) {
-            project.tasks.push(task);
+            project.addTask(task);
         }
     });
 
