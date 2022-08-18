@@ -17,7 +17,6 @@ createProject.addEventListener('click', () => {
     borderOnClick();
     //each time we create a project it renders the added project to our drop down selector.
     renderDropDown(projects, projectNumCount);
-    console.log(projects);
 });
 
 taskButton.addEventListener('click', () => {
