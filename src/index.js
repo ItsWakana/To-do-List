@@ -11,13 +11,12 @@ const projects = [];
 
 createProject.addEventListener('click', () => {
     projectNumCount++;
-    addProjectToDOM(`Project ${projectNumCount}`);
     const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
     projects.push(projectObj);
+    addProjectToDOM(projectObj.title);
     borderOnClick();
     renderDropDown(projects, projectNumCount);
-    projectObj.renderTask(projects);
-    // renderTaskOnProjClick(projects);
+    // projectObj.renderTask(projects);
 });
 
 taskButton.addEventListener('click', () => {
@@ -46,12 +45,14 @@ submitTask.addEventListener('click', (e) => {
         return;
     }
     const task = createTask();
-
+    console.log(task);
     projects.forEach(project => {
+        
         if (task.projectParent === project.title) {
             // project.tasks = { ...project.tasks, [task.title]: task };
             // project.tasks.push({ 'task': task });
             project.tasks.push(task);
+            project.renderTask();
         }
     });
 
