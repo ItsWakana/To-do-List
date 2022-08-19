@@ -1,7 +1,7 @@
 import './style.css';
 import { addProjectToDOM, renderDropDown, getUserInputFromDOM } from './DOMCreation';
 import { openModal, closeModal, borderOnClick } from './utilities';
-import { Project, projectNumCount } from './projectLogic';
+import { Project, projectNumCount, taskIncrementor } from './projectLogic';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
@@ -33,6 +33,7 @@ overlay.addEventListener('click', () => {
 });
 
 submitTask.addEventListener('click', (e) => {
+    taskIncrementor++;
     e.preventDefault();
     const modal = document.querySelector('.task-form');
 

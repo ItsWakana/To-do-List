@@ -146,6 +146,8 @@ export function getUserInputFromDOM() {
     const projectSelection = document.getElementById('project');
     const projectParent = projectSelection.options[projectSelection.selectedIndex].text;
 
+
+
     const dueDate = document.getElementById('date').value;
     const taskObj = createTaskObj(title,description,priority,
         projectSelection,projectParent,dueDate);

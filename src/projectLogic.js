@@ -29,7 +29,8 @@ export const Project = (title, id) => {
     
     }
 
-    const removeTask = (tasks, index) => {
+    const removeTask = (task) => {
+        const index = tasks.indexOf(task);
         tasks.splice(index,1);
     }
     
