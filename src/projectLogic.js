@@ -8,14 +8,13 @@ export const createTaskObj = (title,description,priority,projSelection,projectPa
     return { id, title, description, priority, projSelection,projectParent,dueDate }
 }
 
-export let projectNumCount = 1;
+export let projectNumCount = 0;
 
 export const Project = (title, id) => {
 
     const tasks = [];
 
     const addProject = (array,project) => {
-        projectNumCount++;
         array.push(project);
     }
 

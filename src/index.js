@@ -10,6 +10,7 @@ const submitTask = document.querySelector('.submit');
 const projects = [];
 
 createProject.addEventListener('click', () => {
+    projectNumCount++;
     const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
     projectObj.addProject(projects,projectObj);
     addProjectToDOM(projectObj);
