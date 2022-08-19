@@ -17,7 +17,7 @@ export function addProjectToDOM(obj) {
     newProject.addEventListener('click', () => { 
         const container = document.querySelector('.tasks');
         clearPreviousTasks(container);
-        obj.renderTask();
+        obj.renderTask(obj);
     });
 }
 
@@ -28,7 +28,7 @@ export function clearPreviousTasks(element) {
     }
 }
 
-export function addTaskToDOM(title, date, taskobj) {
+export function addTaskToDOM(title, date, obj, projectObj) {
 
     const tasks = document.querySelector('.tasks');
 
@@ -54,11 +54,12 @@ export function addTaskToDOM(title, date, taskobj) {
 
     detailsButton.addEventListener('click', () => {
         const container = document.querySelector('.task-details');
-        renderTaskDetails(container, taskobj);
+        renderTaskDetails(container, obj);
     });
 
     deleteBtn.addEventListener('click', () => {
         newTask.remove();
+        projectObj.removeTask(obj);
     });
 
     btnContainer.append(detailsButton, deleteBtn);

@@ -1,11 +1,11 @@
 import { addTaskToDOM, addProjectToDOM, clearTasks } from './DOMCreation'
 import { borderOnClick } from './utilities';
 
-export let taskIncrementor = 0;
+// export let taskIncrementor = 0;
 
 export const createTaskObj = (title,description,priority,projSelection,projectParent,dueDate ) => {
 
-    let id = taskIncrementor;
+    let id = 0;
 
     return { id, title, description, priority, projSelection,projectParent,dueDate }
 }
@@ -21,11 +21,12 @@ export const Project = (title, id) => {
     }
 
     const addTask = (task) => {
+        task.id = tasks.length +1;
         tasks.push(task)
     }
 
-    const renderTask = () => {
-        tasks.forEach(task => addTaskToDOM(task.title,task.dueDate,task));
+    const renderTask = (projectObj) => {
+        tasks.forEach(task => addTaskToDOM(task.title,task.dueDate,task, projectObj));
     
     }
 
@@ -34,7 +35,7 @@ export const Project = (title, id) => {
         tasks.splice(index,1);
     }
     
-    return { title, id, tasks, renderTask, addTask, addProject } 
+    return { title, id, tasks, renderTask, addTask, addProject,removeTask } 
 }
 
 // export function renderTaskOnProjClick(projectArray) {
