@@ -40,9 +40,8 @@ body {
     background-color: var(--prjct-tsk-background-clr);
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-
+    border-bottom-left-radius: 5px;
     width: 300px;
-    /* height: 30%; */
     overflow: scroll;
 }
 

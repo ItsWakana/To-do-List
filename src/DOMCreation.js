@@ -68,25 +68,6 @@ export function addTaskToDOM(title, date, obj, projectObj) {
     newTask.append(taskTitle,dueDate,btnContainer);
 }
 
-        // const taskSelection = document.querySelector('.tasks');
-        // const taskDetailsBtn = taskSelection.querySelectorAll('.details-btn');
-        // taskDetailsBtn.forEach((btn, i) => {
-        //     btn.addEventListener('click', () => {
-        //         const container = document.querySelector('.task-details');
-        //         removeDOMTasks(container);
-        //         renderTaskDetails(container,projectObj,i);
-        //     });
-        // });
-
-        // const allTasks = document.querySelectorAll('.task');
-        // const deleteTaskBtn = taskSelection.querySelectorAll('.delete-button');
-        // deleteTaskBtn.forEach((btn, i) => {
-        //     btn.addEventListener('click', () => {
-        //         allTasks[i].remove();
-        //         tasks.splice(i, 1);
-        //     });
-        // });
-
 export function renderTaskDetails(container,task) {
 
     clearPreviousTasks(container);
