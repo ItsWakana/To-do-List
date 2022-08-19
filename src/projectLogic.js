@@ -23,7 +23,7 @@ export const Project = (title, id) => {
     }
 
     const renderTask = (projectObj) => {
-        tasks.forEach(task => addTaskToDOM(task.title,task.dueDate,task, projectObj));
+        tasks.forEach(task => addTaskToDOM(task, projectObj));
     
     }
 

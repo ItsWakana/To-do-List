@@ -34,7 +34,7 @@ export function submitTheTask(projects) {
     closeModal(modal);
 }
 
-export function addTaskToDOM(title, date, obj, projectObj) {
+export function addTaskToDOM(obj, projectObj) {
 
     const tasks = document.querySelector('.tasks');
 
@@ -42,10 +42,10 @@ export function addTaskToDOM(title, date, obj, projectObj) {
     newTask.className = 'task';
 
     const taskTitle = document.createElement('h3');
-    taskTitle.innerText = title;
+    taskTitle.innerText = obj.title;
 
     const dueDate = document.createElement('p');
-    dueDate.innerText = date;
+    dueDate.innerText = obj.dueDate;
 
     const detailsButton = document.createElement('button');
     detailsButton.innerText = 'Details';

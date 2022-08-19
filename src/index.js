@@ -14,7 +14,6 @@ createProject.addEventListener('click', () => {
     //calls our project factory and uses that object to render to the DOM.
     addProjectToDOM(projects);
     borderOnClick();
-
     renderDropDown(projects,projectNumCount);
 });
 
@@ -32,21 +31,5 @@ overlay.addEventListener('click', () => {
 
 submitTask.addEventListener('click', (e) => {
     e.preventDefault();
-    // const modal = document.querySelector('.task-form');
-
-    // if (projects.length == 0) {
-    //     alert('You must create a project first');
-    //     closeModal(modal);
-    //     return;
-    // }
-    // const task = getUserInputFromDOM();
-
-    // projects.forEach(project => {
-    //     if (task.projectParent === project.title) {
-    //         project.addTask(task);
-    //     }
-    // });
-
-    // closeModal(modal);
     submitTheTask(projects);
 });
