@@ -3,7 +3,7 @@ export function borderOnClick() {
     const projects = [...document.querySelectorAll('.project')];
 
     projects.forEach(project => {
-        project.addEventListener('click', (e) => {
+        project.addEventListener('click', () => {
             projects.forEach(e => e.classList.remove('active'));
             project.classList.add('active');
         });

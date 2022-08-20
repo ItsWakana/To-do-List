@@ -11,7 +11,6 @@ const submitTask = document.querySelector('.submit');
 const projects = [];
 
 createProject.addEventListener('click', () => {
-    //calls our project factory and uses that object to render to the DOM.
     addProjectToDOM(projects);
     borderOnClick();
     renderDropDown(projects,projectNumCount);

@@ -120,10 +120,8 @@ export function getUserInputFromDOM() {
     const priority = document.querySelector('input[name="priority"]:checked').id;
     const projectSelection = document.getElementById('project');
     const projectParent = projectSelection.options[projectSelection.selectedIndex].text;
-
-
-
     const dueDate = document.getElementById('date').value;
+    
     const taskObj = createTaskObj(title,description,priority,
         projectSelection,projectParent,dueDate);
     return taskObj;
