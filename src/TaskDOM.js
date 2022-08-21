@@ -22,6 +22,10 @@ export function submitTheTask(projects) {
         closeModal(modal);
         return;
     }
+    if (document.querySelector('input[name="priority"]:checked') === null) {
+        alert('Please select a priority');
+        return;
+    }
 
     const task = getUserInputFromDOM();
 
