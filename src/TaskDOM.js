@@ -1,6 +1,8 @@
 import { openModal, closeModal } from "./utilities";
 import { createTaskObj } from "./projectLogic";
 
+import { formatDistanceToNow } from "date-fns";
+
 export function openTaskInput(modal) {
     document.querySelector('input[id="title"]').value = '';
     document.querySelector('textarea[id="desc"]').value = '';
@@ -49,7 +51,19 @@ export function addTaskToDOM(obj, projectObj) {
     taskTitle.innerText = obj.title;
 
     const dueDate = document.createElement('p');
+    
     dueDate.innerText = obj.dueDate;
+
+    const timeTillTask = document.createElement('p');
+
+    const reworked = obj.dueDate;
+    const year = reworked.slice(0,4);
+    const month = reworked.slice(5,7);
+    const day = reworked.slice(8,11);
+
+    const result = formatDistanceToNow(new Date(year,month -1,day))
+    timeTillTask.style.fontWeight = 'bold';
+    timeTillTask.innerText = `To-do in ${result}`;
 
     const detailsButton = document.createElement('button');
     detailsButton.innerText = 'Details';
@@ -75,7 +89,7 @@ export function addTaskToDOM(obj, projectObj) {
     btnContainer.append(detailsButton, deleteBtn);
 
     tasks.append(newTask);
-    newTask.append(taskTitle,dueDate,btnContainer);
+    newTask.append(taskTitle,dueDate, timeTillTask, btnContainer);
 }
 
 export function renderTaskDetails(container,task) {
@@ -99,6 +113,14 @@ export function renderTaskDetails(container,task) {
     desc.innerText = task.description;
 
     const date = document.createElement('p');
+
+    // const reworked = task.dueDate;
+    // const year = reworked.slice(0,4);
+    // const month = reworked.slice(5,7);
+    // const day = reworked.slice(8,11);
+
+    // const result = formatDistanceToNow(new Date(year,month -1,day))
+    // console.log(result);
     date.innerText = task.dueDate;
 
     const priority = document.createElement('p');
