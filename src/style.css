@@ -60,6 +60,7 @@ body {
     color: var(--main-font-clr);
     background-color: white;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .tasks > .task {

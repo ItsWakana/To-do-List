@@ -54,16 +54,16 @@ export function addTaskToDOM(obj, projectObj) {
     
     dueDate.innerText = obj.dueDate;
 
-    const timeTillTask = document.createElement('p');
+    // const timeTillTask = document.createElement('p');
 
-    const reworked = obj.dueDate;
-    const year = reworked.slice(0,4);
-    const month = reworked.slice(5,7);
-    const day = reworked.slice(8,11);
+    // const reworked = obj.dueDate;
+    // const year = reworked.slice(0,4);
+    // const month = reworked.slice(5,7);
+    // const day = reworked.slice(8,11);
 
-    const result = formatDistanceToNow(new Date(year,month -1,day))
-    timeTillTask.style.fontWeight = 'bold';
-    timeTillTask.innerText = `To-do in ${result}`;
+    // const result = formatDistanceToNow(new Date(year,month -1,day))
+    // timeTillTask.style.fontWeight = 'bold';
+    // timeTillTask.innerText = `To-do in ${result}`;
 
     const detailsButton = document.createElement('button');
     detailsButton.innerText = 'Details';
@@ -89,7 +89,7 @@ export function addTaskToDOM(obj, projectObj) {
     btnContainer.append(detailsButton, deleteBtn);
 
     tasks.append(newTask);
-    newTask.append(taskTitle,dueDate, timeTillTask, btnContainer);
+    newTask.append(taskTitle,dueDate, timeTillTaskElement(obj), btnContainer);
 }
 
 export function renderTaskDetails(container,task) {
@@ -114,13 +114,6 @@ export function renderTaskDetails(container,task) {
 
     const date = document.createElement('p');
 
-    // const reworked = task.dueDate;
-    // const year = reworked.slice(0,4);
-    // const month = reworked.slice(5,7);
-    // const day = reworked.slice(8,11);
-
-    // const result = formatDistanceToNow(new Date(year,month -1,day))
-    // console.log(result);
     date.innerText = task.dueDate;
 
     const priority = document.createElement('p');
@@ -151,4 +144,19 @@ export function getUserInputFromDOM() {
     const taskObj = createTaskObj(title,description,priority,
         projectSelection,projectParent,dueDate);
     return taskObj;
+}
+
+function timeTillTaskElement(obj) {
+    const timeTillTask = document.createElement('p');
+
+    const reworked = obj.dueDate;
+    const year = reworked.slice(0,4);
+    const month = reworked.slice(5,7);
+    const day = reworked.slice(8,11);
+
+    const result = formatDistanceToNow(new Date(year,month -1,day))
+    timeTillTask.style.fontWeight = 'bold';
+    timeTillTask.innerText = `To-do in ${result}`;
+
+    return timeTillTask;
 }
