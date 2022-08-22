@@ -1,18 +1,18 @@
-import { addTaskToDOM, addProjectToDOM, clearTasks } from './DOMCreation'
-import { borderOnClick } from './utilities';
+import { addTaskToDOM } from './TaskDOM';
 
 export const createTaskObj = (title,description,priority,projSelection,projectParent,dueDate ) => {
 
     let id = 0;
+    let completed = false;
 
-    return { id, title, description, priority, projSelection,projectParent,dueDate }
+    return { id, title, description, priority, projSelection, projectParent,dueDate, completed }
 }
 
 export let projectNumCount = 0;
 
 export const Project = (title, id) => {
 
-    const tasks = [];
+    let tasks = [];
 
     const addProject = (array,project) => {
         array.push(project);
@@ -23,8 +23,18 @@ export const Project = (title, id) => {
         tasks.push(task)
     }
 
+    const sortTasks = () => {
+        tasks = tasks.sort((a,b) => {
+            if (b.dueDate > a.dueDate) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+    }
+
     const renderTask = (projectObj) => {
-        tasks.forEach(task => addTaskToDOM(task.title,task.dueDate,task, projectObj));
+        tasks.forEach(task => addTaskToDOM(task, projectObj));
     
     }
 
@@ -33,40 +43,5 @@ export const Project = (title, id) => {
         tasks.splice(index,1);
     }
     
-    return { title, id, tasks, renderTask, addTask, addProject,removeTask } 
+    return { title, id, tasks, renderTask, addTask, addProject, removeTask, sortTasks } 
 }
-
-// export function renderTaskOnProjClick(projectArray) {
-
-//     // const projectElements = Array.from(document.querySelectorAll('.project'));
-
-//     // const projectObj = projectArray.at(-1);
-//     // projectElements.at(-1).addEventListener('click', () => {
-//     //     const taskElements = document.querySelector('.tasks');
-//     //     removeDOMTasks(taskElements);
-
-//     //     const { tasks } = projectObj;
-
-//     //     tasks.forEach(task => addTaskToDOM(task.title,task.dueDate));
-
-//         const taskSelection = document.querySelector('.tasks');
-//         const taskDetailsBtn = taskSelection.querySelectorAll('.details-btn');
-//         taskDetailsBtn.forEach((btn, i) => {
-//             btn.addEventListener('click', () => {
-//                 const container = document.querySelector('.task-details');
-//                 removeDOMTasks(container);
-//                 renderTaskDetails(container,projectObj,i);
-//             });
-//         });
-
-//         const allTasks = document.querySelectorAll('.task');
-//         const deleteTaskBtn = taskSelection.querySelectorAll('.delete-button');
-//         deleteTaskBtn.forEach((btn, i) => {
-//             btn.addEventListener('click', () => {
-//                 allTasks[i].remove();
-//                 tasks.splice(i, 1);
-//             });
-//         });
-
-//     });
-// };

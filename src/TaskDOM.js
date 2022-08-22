@@ -1,24 +1,12 @@
-import { closeModal, openModal } from "./utilities";
+import { openModal, closeModal } from "./utilities";
 import { createTaskObj } from "./projectLogic";
 
-export function addProjectToDOM(obj) {
+import { formatDistanceToNow } from "date-fns";
 
-    const projects = document.querySelector('.projects');
-    const newProject = document.createElement('div');
-    newProject.className = 'project';
-
-    const projectHeading = document.createElement('h3');
-    projectHeading.innerText = obj.title;
-
-    projects.append(newProject);
-    newProject.append(projectHeading);
-
-
-    newProject.addEventListener('click', () => { 
-        const container = document.querySelector('.tasks');
-        clearPreviousTasks(container);
-        obj.renderTask(obj);
-    });
+export function openTaskInput(modal) {
+    document.querySelector('input[id="title"]').value = '';
+    document.querySelector('textarea[id="desc"]').value = '';
+    openModal(modal);
 }
 
 export function clearPreviousTasks(element) {
@@ -28,7 +16,36 @@ export function clearPreviousTasks(element) {
     }
 }
 
-export function addTaskToDOM(title, date, obj, projectObj) {
+export function submitTheTask(projects) {
+    const modal = document.querySelector('.task-form');
+
+    if (projects.length == 0) {
+        alert('You must create a project first');
+        closeModal(modal);
+        return;
+    }
+    if (document.querySelector('input[name="priority"]:checked') === null) {
+        alert('Please select a priority');
+        return;
+    }
+
+    const task = getUserInputFromDOM();
+
+    if (task.title === '') {
+        // validateTitle(task);
+        return;
+    }
+
+    projects.forEach(project => {
+        if (task.projectParent === project.title) {
+            project.addTask(task);
+        }
+    });
+
+    closeModal(modal);
+}
+
+export function addTaskToDOM(obj, projectObj) {
 
     const tasks = document.querySelector('.tasks');
 
@@ -36,10 +53,11 @@ export function addTaskToDOM(title, date, obj, projectObj) {
     newTask.className = 'task';
 
     const taskTitle = document.createElement('h3');
-    taskTitle.innerText = title;
+    taskTitle.innerText = obj.title;
 
     const dueDate = document.createElement('p');
-    dueDate.innerText = date;
+    
+    dueDate.innerText = obj.dueDate;
 
     const detailsButton = document.createElement('button');
     detailsButton.innerText = 'Details';
@@ -48,6 +66,10 @@ export function addTaskToDOM(title, date, obj, projectObj) {
     const deleteBtn = document.createElement('button');
     deleteBtn.innerText = 'Delete';
     deleteBtn.className = 'delete-button';
+
+    const completedIcon = document.createElement('img');
+    completedIcon.src = '../src/assets/tick.svg';
+    completedIcon.className = 'icon';
 
     const btnContainer = document.createElement('div');
     btnContainer.className = 'btn-container';
@@ -62,10 +84,24 @@ export function addTaskToDOM(title, date, obj, projectObj) {
         projectObj.removeTask(obj);
     });
 
-    btnContainer.append(detailsButton, deleteBtn);
+    if (obj.completed == true) {
+        newTask.classList.add('active');
+    }
+
+    completedIcon.addEventListener('click', () => {
+        if (obj.completed == false) {
+            newTask.classList.add('active');
+            obj.completed = true;
+            return;
+        }
+        obj.completed = false;
+        newTask.classList.remove('active');
+    });
+
+    btnContainer.append(detailsButton, deleteBtn, completedIcon);
 
     tasks.append(newTask);
-    newTask.append(taskTitle,dueDate,btnContainer);
+    newTask.append(taskTitle,dueDate, timeTillTaskElement(obj), btnContainer);
 }
 
 export function renderTaskDetails(container,task) {
@@ -89,6 +125,7 @@ export function renderTaskDetails(container,task) {
     desc.innerText = task.description;
 
     const date = document.createElement('p');
+
     date.innerText = task.dueDate;
 
     const priority = document.createElement('p');
@@ -108,30 +145,40 @@ export function renderTaskDetails(container,task) {
         dateHead,date,priorityHead,priority, exitBtn);
 }
 
-
-export function renderDropDown(array, arrayNumber) {
-    const dropDownMenu = document.getElementById('project');
-
-    if (array.length === 0) return;
-
-    const option = document.createElement('option');
-    option.value = arrayNumber; 
-    option.innerText = `Project ${arrayNumber}`;
-    dropDownMenu.append(option);
-
-}
-
 export function getUserInputFromDOM() {
     const title = document.getElementById('title').value;
     const description = document.getElementById('desc').value;
     const priority = document.querySelector('input[name="priority"]:checked').id;
     const projectSelection = document.getElementById('project');
     const projectParent = projectSelection.options[projectSelection.selectedIndex].text;
-
-
-
     const dueDate = document.getElementById('date').value;
+    
     const taskObj = createTaskObj(title,description,priority,
         projectSelection,projectParent,dueDate);
     return taskObj;
 }
+
+function timeTillTaskElement(obj) {
+    const timeTillTask = document.createElement('p');
+
+    const reworked = obj.dueDate;
+    const year = reworked.slice(0,4);
+    const month = reworked.slice(5,7);
+    const day = reworked.slice(8,11);
+
+    const result = formatDistanceToNow(new Date(year,month -1,day))
+    timeTillTask.style.fontWeight = 'bold';
+    timeTillTask.innerText = `To-do in ${result}`;
+
+    return timeTillTask;
+}
+
+// function validateTitle(task) {
+//     const title = document.getElementById('title');
+
+//     if (task.title == '') {
+//         title.classList.add('invalid');
+//     } else {
+//         title.classList.remove('invalid');
+//     }
+// }

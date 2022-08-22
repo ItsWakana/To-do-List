@@ -1,28 +1,26 @@
 import './style.css';
-import { addProjectToDOM, renderDropDown, getUserInputFromDOM } from './DOMCreation';
-import { openModal, closeModal, borderOnClick } from './utilities';
-import { Project, projectNumCount } from './projectLogic';
+import {  submitTheTask, openTaskInput } from './TaskDOM';
+import { closeModal, borderOnClick } from './utilities';
+import { projectNumCount } from './projectLogic';
+import { addProjectToDOM, renderDropDown } from './ProjectDOM';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
 const submitTask = document.querySelector('.submit');
+const closeIcon = document.querySelector('.icon');
 
 const projects = [];
 
 createProject.addEventListener('click', () => {
-    projectNumCount++;
-    const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
-    projectObj.addProject(projects,projectObj);
-    addProjectToDOM(projectObj);
+    addProjectToDOM(projects);
     borderOnClick();
-    //each time we create a project it renders the added project to our drop down selector.
-    renderDropDown(projects, projectNumCount);
+    renderDropDown(projects,projectNumCount);
 });
+
+
 taskButton.addEventListener('click', () => {
-    document.querySelector('input[id="title"]').value = '';
-    document.querySelector('textarea[id="desc"]').value = '';
     const modal = document.querySelector('.task-form');
-    openModal(modal);
+    openTaskInput(modal);
 });
 overlay.addEventListener('click', () => {
     const modals = document.querySelectorAll('.modal');
@@ -31,23 +29,14 @@ overlay.addEventListener('click', () => {
     })
 });
 
+closeIcon.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        closeModal(modal);
+    })
+});
+
 submitTask.addEventListener('click', (e) => {
     e.preventDefault();
-    const modal = document.querySelector('.task-form');
-
-    if (projects.length == 0) {
-        alert('You must create a project first');
-        closeModal(modal);
-        return;
-    }
-    const task = getUserInputFromDOM();
-
-    projects.forEach(project => {
-        if (task.projectParent === project.title) {
-            project.addTask(task);
-        }
-    });
-
-    closeModal(modal);
-
+    submitTheTask(projects);
 });
