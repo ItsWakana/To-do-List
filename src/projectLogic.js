@@ -3,8 +3,9 @@ import { addTaskToDOM } from './TaskDOM';
 export const createTaskObj = (title,description,priority,projSelection,projectParent,dueDate ) => {
 
     let id = 0;
+    let completed = false;
 
-    return { id, title, description, priority, projSelection,projectParent,dueDate }
+    return { id, title, description, priority, projSelection, projectParent,dueDate, completed }
 }
 
 export let projectNumCount = 0;

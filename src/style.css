@@ -22,7 +22,7 @@ body {
     flex-direction: column;
     background-color: var(--background-clr);
     align-items: center;
-    position: relative;
+    /* position: relative; */
     margin-top: 50px;
     height: 100vh;
 }
@@ -67,6 +67,7 @@ body {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+    gap: 5px;
     align-items: flex-start;
     justify-content: flex-start;
     padding-top: 15px;
@@ -78,13 +79,16 @@ body {
     border: solid 4px var(--background-clr);
 }
 
+.task.active {
+    opacity: .5;
+}
+
 .tasks > .task .details-btn,
 .task-details > .close-button,
 .submit,
 .tasks > .task .delete-button {
     border: none;
     padding: 10px;
-    margin-top: 10px;
     font-weight: bold;
     border-radius: 7px;
     background-color: var(--prjct-tsk-background-clr);
@@ -93,6 +97,8 @@ body {
 
 .btn-container {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 10px;
 }
 
@@ -100,7 +106,6 @@ body {
     position: fixed;
     display: flex;
     flex-direction: column;
-    /* gap: 5px; */
     top: 30%;
     max-width: 60%;
     background-color: white;
@@ -144,9 +149,22 @@ body {
     transform: scale(1);
 }
 
+.modal .icon {
+    position: absolute;
+    margin-top: 8px;
+    margin-right: 8px;
+    top: 0;
+    right: 0;
+}
+
+.icon {
+    width: 20px;
+    cursor: pointer;
+}
+
 
 .task-form {
-    padding: 25px 25px;
+    padding: 35px 35px;
     font-weight: bold;
 }
 

@@ -7,6 +7,7 @@ import { addProjectToDOM, renderDropDown } from './ProjectDOM';
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
 const submitTask = document.querySelector('.submit');
+const closeIcon = document.querySelector('.icon');
 
 const projects = [];
 
@@ -22,6 +23,13 @@ taskButton.addEventListener('click', () => {
     openTaskInput(modal);
 });
 overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        closeModal(modal);
+    })
+});
+
+closeIcon.addEventListener('click', () => {
     const modals = document.querySelectorAll('.modal');
     modals.forEach(modal => {
         closeModal(modal);

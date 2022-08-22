@@ -54,17 +54,6 @@ export function addTaskToDOM(obj, projectObj) {
     
     dueDate.innerText = obj.dueDate;
 
-    // const timeTillTask = document.createElement('p');
-
-    // const reworked = obj.dueDate;
-    // const year = reworked.slice(0,4);
-    // const month = reworked.slice(5,7);
-    // const day = reworked.slice(8,11);
-
-    // const result = formatDistanceToNow(new Date(year,month -1,day))
-    // timeTillTask.style.fontWeight = 'bold';
-    // timeTillTask.innerText = `To-do in ${result}`;
-
     const detailsButton = document.createElement('button');
     detailsButton.innerText = 'Details';
     detailsButton.className = 'details-btn';
@@ -72,6 +61,10 @@ export function addTaskToDOM(obj, projectObj) {
     const deleteBtn = document.createElement('button');
     deleteBtn.innerText = 'Delete';
     deleteBtn.className = 'delete-button';
+
+    const completedIcon = document.createElement('img');
+    completedIcon.src = '../src/assets/tick.svg';
+    completedIcon.className = 'icon';
 
     const btnContainer = document.createElement('div');
     btnContainer.className = 'btn-container';
@@ -86,7 +79,21 @@ export function addTaskToDOM(obj, projectObj) {
         projectObj.removeTask(obj);
     });
 
-    btnContainer.append(detailsButton, deleteBtn);
+    if (obj.completed == true) {
+        newTask.classList.add('active');
+    }
+
+    completedIcon.addEventListener('click', () => {
+        if (obj.completed == false) {
+            newTask.classList.add('active');
+            obj.completed = true;
+            return;
+        }
+        obj.completed = false;
+        newTask.classList.remove('active');
+    });
+
+    btnContainer.append(detailsButton, deleteBtn, completedIcon);
 
     tasks.append(newTask);
     newTask.append(taskTitle,dueDate, timeTillTaskElement(obj), btnContainer);
