@@ -31,6 +31,11 @@ export function submitTheTask(projects) {
 
     const task = getUserInputFromDOM();
 
+    if (task.title === '') {
+        // validateTitle(task);
+        return;
+    }
+
     projects.forEach(project => {
         if (task.projectParent === project.title) {
             project.addTask(task);
@@ -167,3 +172,13 @@ function timeTillTaskElement(obj) {
 
     return timeTillTask;
 }
+
+// function validateTitle(task) {
+//     const title = document.getElementById('title');
+
+//     if (task.title == '') {
+//         title.classList.add('invalid');
+//     } else {
+//         title.classList.remove('invalid');
+//     }
+// }
