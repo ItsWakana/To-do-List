@@ -22,6 +22,7 @@ export function addProjectToDOM(projectsArray) {
     newProject.addEventListener('click', () => { 
         const container = document.querySelector('.tasks');
         clearPreviousTasks(container);
+        projectObj.sortTasks();
         projectObj.renderTask(projectObj);
     });
 }

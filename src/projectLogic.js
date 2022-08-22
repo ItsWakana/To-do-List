@@ -12,7 +12,7 @@ export let projectNumCount = 0;
 
 export const Project = (title, id) => {
 
-    const tasks = [];
+    let tasks = [];
 
     const addProject = (array,project) => {
         array.push(project);
@@ -21,6 +21,16 @@ export const Project = (title, id) => {
     const addTask = (task) => {
         task.id = tasks.length +1;
         tasks.push(task)
+    }
+
+    const sortTasks = () => {
+        tasks = tasks.sort((a,b) => {
+            if (b.dueDate > a.dueDate) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
     }
 
     const renderTask = (projectObj) => {
@@ -33,5 +43,5 @@ export const Project = (title, id) => {
         tasks.splice(index,1);
     }
     
-    return { title, id, tasks, renderTask, addTask, addProject, removeTask } 
+    return { title, id, tasks, renderTask, addTask, addProject, removeTask, sortTasks } 
 }
