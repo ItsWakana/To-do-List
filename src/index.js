@@ -6,7 +6,6 @@ import { addProjectToDOM, renderDropDown } from './ProjectDOM';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
-// const submitTask = document.querySelector('.submit');
 const closeIcon = document.querySelector('.icon');
 
 const projects = [];
@@ -16,7 +15,6 @@ export let numberForDropDown = [];
 createProject.addEventListener('click', () => {
     addProjectToDOM(projects);
     borderOnClick();
-    // renderDropDown(projects,projectNumCount);
     numberForDropDown.push(projectNumCount);
 });
 
@@ -32,17 +30,5 @@ overlay.addEventListener('click', () => {
         closeModal(modal);
     })
 });
-
-// closeIcon.addEventListener('click', () => {
-//     const modals = document.querySelectorAll('.modal');
-//     modals.forEach(modal => {
-//         closeModal(modal);
-//     })
-// });
-
-// submitTask.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     submitTheTask(projects);
-// });
 
 

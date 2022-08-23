@@ -5,8 +5,6 @@ import { formatDistanceToNow } from "date-fns";
 import { numberForDropDown } from ".";
 
 export function openTaskInput(modal) {
-    // document.querySelector('input[id="title"]').value = '';
-    // document.querySelector('textarea[id="desc"]').value = '';
     openModal(modal);
 }
 
@@ -186,8 +184,6 @@ export function renderTaskForm(container,projects,dropDownArray) {
 export function renderTaskEditForm(container, taskObj, dropDownArray) {
     clearPreviousTasks(container);
 
-    // const current = getUserTaskEdits();
-
     const form = document.createElement('form');
     form.className = 'inner';
 
@@ -336,15 +332,3 @@ function timeTillTaskElement(obj) {
 
     return timeTillTask;
 }
-
-// function editTask(taskObj) {
-//     const modal = document.querySelector('.task-form');
-//     const taskEdit = document.querySelector('.edit-submit');
-//     const taskSubmit = document.querySelector('.submit');
-//     taskEdit.classList.add('active');
-//     taskSubmit.classList.add('inactive');
-
-//     document.querySelector('input[id="title"]').value = taskObj.title;
-//     document.querySelector('textarea[id="desc"]').value = taskObj.description;
-//     openModal(modal);
-// }
