@@ -4,8 +4,8 @@ import { createTaskObj } from "./projectLogic";
 import { formatDistanceToNow } from "date-fns";
 
 export function openTaskInput(modal) {
-    document.querySelector('input[id="title"]').value = '';
-    document.querySelector('textarea[id="desc"]').value = '';
+    // document.querySelector('input[id="title"]').value = '';
+    // document.querySelector('textarea[id="desc"]').value = '';
     openModal(modal);
 }
 
@@ -32,7 +32,6 @@ export function submitTheTask(projects) {
     const task = getUserInputFromDOM();
 
     if (task.title === '') {
-        // validateTitle(task);
         return;
     }
 
@@ -67,6 +66,10 @@ export function addTaskToDOM(obj, projectObj) {
     deleteBtn.innerText = 'Delete';
     deleteBtn.className = 'delete-button';
 
+    const editButton = document.createElement('button');
+    editButton.innerText = 'Edit';
+    editButton.className = 'edit-button';
+
     const completedIcon = document.createElement('img');
     completedIcon.src = '../src/assets/tick.svg';
     completedIcon.className = 'icon';
@@ -77,6 +80,11 @@ export function addTaskToDOM(obj, projectObj) {
     detailsButton.addEventListener('click', () => {
         const container = document.querySelector('.task-details');
         renderTaskDetails(container, obj);
+    });
+
+    editButton.addEventListener('click', () => {
+        editTask(obj);
+
     });
 
     deleteBtn.addEventListener('click', () => {
@@ -98,10 +106,77 @@ export function addTaskToDOM(obj, projectObj) {
         newTask.classList.remove('active');
     });
 
-    btnContainer.append(detailsButton, deleteBtn, completedIcon);
+    btnContainer.append(detailsButton, deleteBtn, editButton, completedIcon);
 
     tasks.append(newTask);
     newTask.append(taskTitle,dueDate, timeTillTaskElement(obj), btnContainer);
+}
+
+export function renderTaskForm(container,projects,dropDownArray) {
+    clearPreviousTasks(container);
+
+    const form = document.createElement('form');
+    form.className = 'inner';
+
+    const title = document.createElement('input');
+    title.type = 'text'; title.name = 'title'; title.id = 'title'; title.placeholder = 'Title';
+
+    const textarea = document.createElement('textarea');
+    textarea.name = 'desc'; textarea.id = 'desc'; 
+    textarea.placeholder = 'Brief description of task';
+
+    const priorityContainer = document.createElement('div');
+    priorityContainer.className = 'priority';
+
+    for (let i=0; i<5; i++) {
+        const label = document.createElement('label');
+        label.for = 'priority1'
+        label.textContent = i +1;
+
+        priorityContainer.append(label);
+
+        const input = document.createElement('input');
+        input.type = 'radio'; input.name = 'priority'; input.id = i +1;
+
+        priorityContainer.append(input);
+    }
+
+    const select = document.createElement('select');
+    select.name = 'project'; select.id = 'project';
+
+    for (let i=1; i<=dropDownArray.length; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.innerText = `Project ${i}`;
+        select.append(option);
+    }
+    
+    const date = document.createElement('input');
+    date.type = 'date'; date.name = 'date'; date.id = 'date';
+
+    const submit = document.createElement('button');
+    submit.innerText = 'Add the task';
+
+    const closeIcon = document.createElement('img');
+    closeIcon.className = 'icon';
+    closeIcon.src = '../src/assets/close.svg';
+
+    submit.addEventListener('click', (e) => {
+        e.preventDefault();
+        submitTheTask(projects);
+    });
+
+    closeIcon.addEventListener('click', () => {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            closeModal(modal);
+        })
+    });
+
+    form.append(title,textarea,priorityContainer,select,date,submit);
+    container.append(form,closeIcon);
+
+
 }
 
 export function renderTaskDetails(container,task) {
@@ -173,12 +248,14 @@ function timeTillTaskElement(obj) {
     return timeTillTask;
 }
 
-// function validateTitle(task) {
-//     const title = document.getElementById('title');
+function editTask(taskObj) {
+    const modal = document.querySelector('.task-form');
+    const taskEdit = document.querySelector('.edit-submit');
+    const taskSubmit = document.querySelector('.submit');
+    taskEdit.classList.add('active');
+    taskSubmit.classList.add('inactive');
 
-//     if (task.title == '') {
-//         title.classList.add('invalid');
-//     } else {
-//         title.classList.remove('invalid');
-//     }
-// }
+    document.querySelector('input[id="title"]').value = taskObj.title;
+    document.querySelector('textarea[id="desc"]').value = taskObj.description;
+    openModal(modal);
+}

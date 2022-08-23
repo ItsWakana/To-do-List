@@ -27,14 +27,14 @@ export function addProjectToDOM(projectsArray) {
     });
 }
 
-export function renderDropDown(array, arrayNumber) {
-    const dropDownMenu = document.getElementById('project');
+// export function renderDropDown(array, arrayNumber) {
+//     const dropDownMenu = document.getElementById('project');
 
-    if (array.length === 0) return;
+//     if (array.length === 0) return;
 
-    const option = document.createElement('option');
-    option.value = arrayNumber; 
-    option.innerText = `Project ${arrayNumber}`;
-    dropDownMenu.append(option);
+//     const option = document.createElement('option');
+//     option.value = arrayNumber; 
+//     option.innerText = `Project ${arrayNumber}`;
+//     dropDownMenu.append(option);
 
-}
+// }

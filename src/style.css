@@ -86,6 +86,7 @@ body {
 .tasks > .task .details-btn,
 .task-details > .close-button,
 .submit,
+.edit-submit,
 .tasks > .task .delete-button {
     border: none;
     padding: 10px;
