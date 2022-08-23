@@ -1,8 +1,8 @@
 import './style.css';
-import {  submitTheTask, openTaskInput, renderTaskForm } from './TaskDOM';
+import { openTaskInput, renderTaskForm } from './TaskDOM';
 import { closeModal, borderOnClick } from './utilities';
 import { projectNumCount } from './projectLogic';
-import { addProjectToDOM, renderDropDown } from './ProjectDOM';
+import { addProjectToDOM } from './ProjectDOM';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');

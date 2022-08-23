@@ -234,7 +234,10 @@ export function renderTaskEditForm(container, taskObj, dropDownArray) {
 
     edit.addEventListener('click', (e) => {
         e.preventDefault();
-        editTheTask(obj)
+        taskObj.title = title.value;
+        taskObj.description = textarea.value;
+        taskObj.dueDate = date.value;
+        closeModal(container);
     });
 
     closeIcon.addEventListener('click', () => {
@@ -306,17 +309,6 @@ export function getUserInputFromDOM() {
         projectSelection,projectParent,dueDate);
     return taskObj;
 }
-
-// function getUserTaskEdits() {
-//     const title = document.getElementById('title').value;
-//     const description = document.getElementById('desc').value;
-//     const priority = document.querySelector('input[name="priority"]:checked').id;
-//     const projectSelection = document.getElementById('project');
-//     const projectParent = projectSelection.options[projectSelection.selectedIndex].text;
-//     const dueDate = document.getElementById('date').value;
-
-//     return {title, description, priority, projectSelection, projectParent, dueDate}
-// }
 
 function timeTillTaskElement(obj) {
     const timeTillTask = document.createElement('p');
