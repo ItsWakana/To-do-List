@@ -2,6 +2,7 @@ import { openModal, closeModal } from "./utilities";
 import { createTaskObj } from "./projectLogic";
 
 import { formatDistanceToNow } from "date-fns";
+import { numberForDropDown } from ".";
 
 export function openTaskInput(modal) {
     // document.querySelector('input[id="title"]').value = '';
@@ -83,7 +84,8 @@ export function addTaskToDOM(obj, projectObj) {
     });
 
     editButton.addEventListener('click', () => {
-        editTask(obj);
+        const container = document.querySelector('.task-details');
+        renderTaskEditForm(container, obj, numberForDropDown);
 
     });
 
@@ -111,6 +113,8 @@ export function addTaskToDOM(obj, projectObj) {
     tasks.append(newTask);
     newTask.append(taskTitle,dueDate, timeTillTaskElement(obj), btnContainer);
 }
+
+
 
 export function renderTaskForm(container,projects,dropDownArray) {
     clearPreviousTasks(container);
@@ -179,6 +183,80 @@ export function renderTaskForm(container,projects,dropDownArray) {
 
 }
 
+export function renderTaskEditForm(container, taskObj, dropDownArray) {
+    clearPreviousTasks(container);
+
+    // const current = getUserTaskEdits();
+
+    const form = document.createElement('form');
+    form.className = 'inner';
+
+    const title = document.createElement('input');
+    title.type = 'text'; title.name = 'title'; title.id = 'title';
+    title.value = taskObj.title;
+
+    const textarea = document.createElement('textarea');
+    textarea.name = 'desc'; textarea.id = 'desc'; 
+    textarea.value = taskObj.description;
+
+    const priorityContainer = document.createElement('div');
+    priorityContainer.className = 'priority';
+
+    for (let i=0; i<5; i++) {
+        const label = document.createElement('label');
+        label.for = 'priority1'
+        label.textContent = i +1;
+
+        priorityContainer.append(label);
+
+        const input = document.createElement('input');
+        input.type = 'radio'; input.name = 'priority'; input.id = i +1;
+
+        priorityContainer.append(input);
+    }
+
+    const select = document.createElement('select');
+    select.name = 'project'; select.id = 'project';
+
+    for (let i=1; i<=dropDownArray.length; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.innerText = `Project ${i}`;
+        select.append(option);
+    }
+    
+    const date = document.createElement('input');
+    date.type = 'date'; date.name = 'date'; date.id = 'date';
+    date.value = taskObj.dueDate;
+
+    const edit = document.createElement('button');
+    edit.innerText = 'Edit task';
+
+    const closeIcon = document.createElement('img');
+    closeIcon.className = 'icon';
+    closeIcon.src = '../src/assets/close.svg';
+
+    edit.addEventListener('click', (e) => {
+        e.preventDefault();
+        editTheTask(obj)
+    });
+
+    closeIcon.addEventListener('click', () => {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            closeModal(modal);
+        })
+    });
+
+    openModal(container);
+
+
+    form.append(title,textarea,priorityContainer,select,date,edit);
+    container.append(form,closeIcon);
+
+
+}
+
 export function renderTaskDetails(container,task) {
 
     clearPreviousTasks(container);
@@ -233,6 +311,17 @@ export function getUserInputFromDOM() {
     return taskObj;
 }
 
+// function getUserTaskEdits() {
+//     const title = document.getElementById('title').value;
+//     const description = document.getElementById('desc').value;
+//     const priority = document.querySelector('input[name="priority"]:checked').id;
+//     const projectSelection = document.getElementById('project');
+//     const projectParent = projectSelection.options[projectSelection.selectedIndex].text;
+//     const dueDate = document.getElementById('date').value;
+
+//     return {title, description, priority, projectSelection, projectParent, dueDate}
+// }
+
 function timeTillTaskElement(obj) {
     const timeTillTask = document.createElement('p');
 
@@ -248,14 +337,14 @@ function timeTillTaskElement(obj) {
     return timeTillTask;
 }
 
-function editTask(taskObj) {
-    const modal = document.querySelector('.task-form');
-    const taskEdit = document.querySelector('.edit-submit');
-    const taskSubmit = document.querySelector('.submit');
-    taskEdit.classList.add('active');
-    taskSubmit.classList.add('inactive');
+// function editTask(taskObj) {
+//     const modal = document.querySelector('.task-form');
+//     const taskEdit = document.querySelector('.edit-submit');
+//     const taskSubmit = document.querySelector('.submit');
+//     taskEdit.classList.add('active');
+//     taskSubmit.classList.add('inactive');
 
-    document.querySelector('input[id="title"]').value = taskObj.title;
-    document.querySelector('textarea[id="desc"]').value = taskObj.description;
-    openModal(modal);
-}
+//     document.querySelector('input[id="title"]').value = taskObj.title;
+//     document.querySelector('textarea[id="desc"]').value = taskObj.description;
+//     openModal(modal);
+// }

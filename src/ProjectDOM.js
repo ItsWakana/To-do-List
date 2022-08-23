@@ -2,6 +2,7 @@ import { Project, projectNumCount } from "./projectLogic";
 import { clearPreviousTasks } from "./TaskDOM";
 
 export function addProjectToDOM(projectsArray) {
+
     projectNumCount++;
 
     const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);

@@ -11,7 +11,7 @@ const closeIcon = document.querySelector('.icon');
 
 const projects = [];
 
-let numberForDropDown = [];
+export let numberForDropDown = [];
 
 createProject.addEventListener('click', () => {
     addProjectToDOM(projects);
