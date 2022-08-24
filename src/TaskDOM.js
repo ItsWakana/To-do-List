@@ -3,6 +3,7 @@ import { createTaskObj } from "./projectLogic";
 
 import { formatDistanceToNow } from "date-fns";
 import { numberForDropDown } from ".";
+import { createFormElement, createLabel, createNewElement, createNewImg, createOption, createSelectElement } from "./elementCreation";
 
 export function openTaskInput(modal) {
     openModal(modal);
@@ -47,69 +48,49 @@ export function addTaskToDOM(obj, projectObj) {
 
     const tasks = document.querySelector('.tasks');
 
-    const newTask = document.createElement('div');
-    newTask.className = 'task';
+    const newTask = createNewElement('div', 'task','');
+    const taskTitle = createNewElement('h3', undefined, obj.title);
+    const dueDate = createNewElement('p',undefined,obj.dueDate);
+    const detailsButton = createNewElement('button','details-btn','Details');
+    const deleteBtn = createNewElement('button', 'delete-button', 'Delete');
+    const editButton = createNewElement('button', 'edit-button', 'Edit');
+    const completedIcon = createNewImg('img', 'icon', '../src/assets/tick.svg');
+    const btnContainer = createNewElement('div', 'btn-container', '');
 
-    const taskTitle = document.createElement('h3');
-    taskTitle.innerText = obj.title;
-
-    const dueDate = document.createElement('p');
-    
-    dueDate.innerText = obj.dueDate;
-
-    const detailsButton = document.createElement('button');
-    detailsButton.innerText = 'Details';
-    detailsButton.className = 'details-btn';
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.innerText = 'Delete';
-    deleteBtn.className = 'delete-button';
-
-    const editButton = document.createElement('button');
-    editButton.innerText = 'Edit';
-    editButton.className = 'edit-button';
-
-    const completedIcon = document.createElement('img');
-    completedIcon.src = '../src/assets/tick.svg';
-    completedIcon.className = 'icon';
-
-    const btnContainer = document.createElement('div');
-    btnContainer.className = 'btn-container';
-
-    detailsButton.addEventListener('click', () => {
+    detailsButton.el.addEventListener('click', () => {
         const container = document.querySelector('.task-details');
         renderTaskDetails(container, obj);
     });
 
-    editButton.addEventListener('click', () => {
+    editButton.el.addEventListener('click', () => {
         const container = document.querySelector('.task-details');
         renderTaskEditForm(container, obj, numberForDropDown);
 
     });
 
-    deleteBtn.addEventListener('click', () => {
-        newTask.remove();
+    deleteBtn.el.addEventListener('click', () => {
+        newTask.el.remove();
         projectObj.removeTask(obj);
     });
 
     if (obj.completed == true) {
-        newTask.classList.add('active');
+        newTask.el.classList.add('active');
     }
 
-    completedIcon.addEventListener('click', () => {
+    completedIcon.el.addEventListener('click', () => {
         if (obj.completed == false) {
-            newTask.classList.add('active');
+            newTask.el.classList.add('active');
             obj.completed = true;
             return;
         }
         obj.completed = false;
-        newTask.classList.remove('active');
+        newTask.el.classList.remove('active');
     });
 
-    btnContainer.append(detailsButton, deleteBtn, editButton, completedIcon);
+    btnContainer.el.append(detailsButton.el, deleteBtn.el, editButton.el, completedIcon.el);
 
-    tasks.append(newTask);
-    newTask.append(taskTitle,dueDate, timeTillTaskElement(obj), btnContainer);
+    tasks.append(newTask.el);
+    newTask.el.append(taskTitle.el,dueDate.el, timeTillTaskElement(obj), btnContainer.el);
 }
 
 
@@ -117,68 +98,45 @@ export function addTaskToDOM(obj, projectObj) {
 export function renderTaskForm(container,projects,dropDownArray) {
     clearPreviousTasks(container);
 
-    const form = document.createElement('form');
-    form.className = 'inner';
-
-    const title = document.createElement('input');
-    title.type = 'text'; title.name = 'title'; title.id = 'title'; title.placeholder = 'Title';
-
-    const textarea = document.createElement('textarea');
-    textarea.name = 'desc'; textarea.id = 'desc'; 
-    textarea.placeholder = 'Brief description of task';
-
-    const priorityContainer = document.createElement('div');
-    priorityContainer.className = 'priority';
+    const form = createNewElement('form', 'inner', '');
+    const title = createFormElement('input', 'text', 'title', 'title', 'Title');
+    const textarea = createFormElement('textarea', undefined, 'desc', 'desc', 'Brief description of task');
+    const priorityContainer = createNewElement('div', 'priority', '');
 
     for (let i=0; i<5; i++) {
-        const label = document.createElement('label');
-        label.for = 'priority1'
-        label.textContent = i +1;
 
-        priorityContainer.append(label);
-
-        const input = document.createElement('input');
-        input.type = 'radio'; input.name = 'priority'; input.id = i +1;
-
-        priorityContainer.append(input);
+        const label = createLabel('priority1', i+1);
+        priorityContainer.el.append(label.el);
+        const input = createFormElement('input', 'radio', 'priority', i +1, undefined);
+        priorityContainer.el.append(input.el);
     }
 
-    const select = document.createElement('select');
-    select.name = 'project'; select.id = 'project';
+    const select = createSelectElement('project', 'project');
 
     for (let i=1; i<=dropDownArray.length; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.innerText = `Project ${i}`;
-        select.append(option);
+
+        const option = createOption(i, `Project ${i}`);
+        select.el.append(option.el);
     }
-    
-    const date = document.createElement('input');
-    date.type = 'date'; date.name = 'date'; date.id = 'date';
 
-    const submit = document.createElement('button');
-    submit.innerText = 'Add the task';
+    const date = createFormElement('input', 'date', 'date', 'date');
+    const submit = createNewElement('button', undefined, 'Add the task');
+    const closeIcon = createNewImg('img', 'icon', '../src/assets/close.svg');
 
-    const closeIcon = document.createElement('img');
-    closeIcon.className = 'icon';
-    closeIcon.src = '../src/assets/close.svg';
-
-    submit.addEventListener('click', (e) => {
+    submit.el.addEventListener('click', (e) => {
         e.preventDefault();
         submitTheTask(projects);
     });
 
-    closeIcon.addEventListener('click', () => {
+    closeIcon.el.addEventListener('click', () => {
         const modals = document.querySelectorAll('.modal');
         modals.forEach(modal => {
             closeModal(modal);
         })
     });
 
-    form.append(title,textarea,priorityContainer,select,date,submit);
-    container.append(form,closeIcon);
-
-
+    form.el.append(title.el,textarea.el,priorityContainer.el,select.el,date.el,submit.el);
+    container.append(form.el,closeIcon.el);
 }
 
 export function renderTaskEditForm(container, taskObj, dropDownArray) {
