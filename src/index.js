@@ -6,16 +6,24 @@ import { addProjectToDOM } from './ProjectDOM';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
-const closeIcon = document.querySelector('.icon');
 
-const projects = [];
+// const projects = [];
+localStorage.setItem('projects', []);
 
 export let numberForDropDown = [];
 
 createProject.addEventListener('click', () => {
+
+    console.log(localStorage.getItem('projects'));
+
+
     addProjectToDOM(projects);
     borderOnClick();
     numberForDropDown.push(projectNumCount);
+
+
+    let storedProjects = JSON.parse(localStorage.getItem('projects'));
+    console.log(storedProjects);
 });
 
 
