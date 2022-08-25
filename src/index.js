@@ -8,22 +8,16 @@ const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
 
 // const projects = [];
-localStorage.setItem('projects', []);
+const projects = JSON.parse(localStorage.getItem("projects")) || [];
 
 export let numberForDropDown = [];
 
 createProject.addEventListener('click', () => {
 
-    console.log(localStorage.getItem('projects'));
-
-
     addProjectToDOM(projects);
+    localStorage.setItem("projects", JSON.stringify(projects));
     borderOnClick();
     numberForDropDown.push(projectNumCount);
-
-
-    let storedProjects = JSON.parse(localStorage.getItem('projects'));
-    console.log(storedProjects);
 });
 
 
