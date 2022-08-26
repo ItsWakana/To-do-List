@@ -8,8 +8,8 @@ export const createTaskObj = (title,description,priority,projSelection,projectPa
     return { id, title, description, priority, projSelection, projectParent,dueDate, completed }
 }
 
-// export let projectNumCount = 0;
-export let projectNumCount = JSON.parse(localStorage.getItem("projectNumCount")) || 0;
+export let projectNumCount = 0;
+// export let projectNumCount = JSON.parse(localStorage.getItem("projectNumCount")) || 0;
 
 export const Project = (title, id) => {
 

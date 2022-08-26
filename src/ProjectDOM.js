@@ -16,6 +16,7 @@ export function addProjectToDOM(projectObj) {
     newProject.addEventListener('click', () => { 
         const container = document.querySelector('.tasks');
         clearPreviousTasks(container);
+        console.log(projectObj);
         projectObj.sortTasks();
         projectObj.renderTask(projectObj);
     });

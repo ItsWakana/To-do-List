@@ -7,24 +7,25 @@ import { addProjectToDOM } from './ProjectDOM';
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
 
-// const projects = [];
-const projects = JSON.parse(localStorage.getItem("projects")) || [];
+const projects = [];
+// const projects = JSON.parse(localStorage.getItem("projects")) || [];
 
-export let numberForDropDown = JSON.parse(localStorage.getItem("numberForDropDown")) || [];
+// export let numberForDropDown = JSON.parse(localStorage.getItem("numberForDropDown")) || [];
+export let numberForDropDown = [];
 
 createProject.addEventListener('click', () => {
     projectNumCount++;
-    localStorage.setItem("projectNumCount", JSON.stringify(projectNumCount));
+    // localStorage.setItem("projectNumCount", JSON.stringify(projectNumCount));
     const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
     projectObj.addProject(projects, projectObj);
     addProjectToDOM(projectObj);
-    localStorage.setItem("projects", JSON.stringify(projects));
+    // localStorage.setItem("projects", JSON.stringify(projects));
     borderOnClick();
     numberForDropDown.push(projectNumCount);
-    localStorage.setItem("numberForDropDown", JSON.stringify(numberForDropDown));
+    // localStorage.setItem("numberForDropDown", JSON.stringify(numberForDropDown));
 });
 
-projects.forEach(addProjectToDOM);
+// projects.forEach(addProjectToDOM);
 
 
 taskButton.addEventListener('click', () => {
