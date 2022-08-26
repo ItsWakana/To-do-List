@@ -1,13 +1,7 @@
 import { Project, projectNumCount } from "./projectLogic";
 import { clearPreviousTasks } from "./TaskDOM";
 
-export function addProjectToDOM(projectsArray) {
-
-    projectNumCount++;
-
-    const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
-
-    projectObj.addProject(projectsArray, projectObj);
+export function addProjectToDOM(projectObj) {
 
     const projects = document.querySelector('.projects');
     const newProject = document.createElement('div');
@@ -18,7 +12,6 @@ export function addProjectToDOM(projectsArray) {
 
     projects.append(newProject);
     newProject.append(projectHeading);
-
 
     newProject.addEventListener('click', () => { 
         const container = document.querySelector('.tasks');

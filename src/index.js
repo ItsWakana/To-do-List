@@ -1,7 +1,7 @@
 import './style.css';
 import { openTaskInput, renderTaskForm } from './TaskDOM';
 import { closeModal, borderOnClick } from './utilities';
-import { projectNumCount } from './projectLogic';
+import { projectNumCount, Project } from './projectLogic';
 import { addProjectToDOM } from './ProjectDOM';
 
 const createProject = document.querySelector('.create');
@@ -10,15 +10,21 @@ const taskButton = document.querySelector('.add-task');
 // const projects = [];
 const projects = JSON.parse(localStorage.getItem("projects")) || [];
 
-export let numberForDropDown = [];
+export let numberForDropDown = JSON.parse(localStorage.getItem("numberForDropDown")) || [];
 
 createProject.addEventListener('click', () => {
-
-    addProjectToDOM(projects);
+    projectNumCount++;
+    localStorage.setItem("projectNumCount", JSON.stringify(projectNumCount));
+    const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
+    projectObj.addProject(projects, projectObj);
+    addProjectToDOM(projectObj);
     localStorage.setItem("projects", JSON.stringify(projects));
     borderOnClick();
     numberForDropDown.push(projectNumCount);
+    localStorage.setItem("numberForDropDown", JSON.stringify(numberForDropDown));
 });
+
+projects.forEach(addProjectToDOM);
 
 
 taskButton.addEventListener('click', () => {
