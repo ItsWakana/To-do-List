@@ -1,5 +1,5 @@
 import { Project, projectNumCount } from "./projectLogic";
-import { clearPreviousTasks } from "./TaskDOM";
+import { clearPreviousTasks, addTaskToDOM } from "./TaskDOM";
 
 export function addProjectToDOM(projectObj) {
 
@@ -16,10 +16,26 @@ export function addProjectToDOM(projectObj) {
     newProject.addEventListener('click', () => { 
         const container = document.querySelector('.tasks');
         clearPreviousTasks(container);
-        console.log(projectObj);
-        projectObj.sortTasks();
-        projectObj.renderTask(projectObj);
+        console.log(projectObj.tasks);
+        // projectObj.sortTasks();
+        // projectObj.renderTask(projectObj);
+        sortTaskss(projectObj);
+        renderTaskss(projectObj);
     });
+}
+
+const sortTaskss = ({tasks}) => {
+    tasks = tasks.sort((a,b) => {
+        if (b.dueDate > a.dueDate) {
+            return -1;
+        } else {
+            return 1;
+        }
+    });
+}
+
+const renderTaskss = ({tasks}, projectObj) => {
+    tasks.forEach(task => addTaskToDOM(task, projectObj));
 }
 
 // export function renderDropDown(array, arrayNumber) {
