@@ -46,3 +46,9 @@ export const Project = (title, id) => {
     
     return { title, id, tasks, renderTask, addTask, addProject, removeTask, sortTasks } 
 }
+
+export const addTask = (task, {tasks}) => {
+    task.id = tasks.length +1;
+    tasks.push(task);
+
+}
