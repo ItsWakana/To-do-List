@@ -1,5 +1,5 @@
 import { openModal, closeModal } from "./utilities";
-import { createTaskObj, addTask } from "./projectLogic";
+import { createTaskObj, projectMethods, addTask } from "./projectLogic";
 
 import { formatDistanceToNow } from "date-fns";
 import { numberForDropDown } from ".";
@@ -37,8 +37,9 @@ export function submitTheTask(projects) {
 
     projects.forEach(project => {
         if (task.projectParent === project.title) {
-            // project.addTask(task);
-            addTask(task, project);
+            project.addTask(task);
+            // addTask(task, project);
+            // projectMethods.addTask(task, project);
         }
     });
 

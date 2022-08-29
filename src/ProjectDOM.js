@@ -1,4 +1,4 @@
-import { Project, projectNumCount } from "./projectLogic";
+import { Project, projectNumCount, projectMethods } from "./projectLogic";
 import { clearPreviousTasks, addTaskToDOM } from "./TaskDOM";
 
 export function addProjectToDOM(projectObj) {
@@ -19,24 +19,27 @@ export function addProjectToDOM(projectObj) {
         console.log(projectObj.tasks);
         // projectObj.sortTasks();
         // projectObj.renderTask(projectObj);
-        sortTaskss(projectObj);
-        renderTaskss(projectObj);
+        // sortTaskss(projectObj);
+        // renderTaskss(projectObj);
+
+        projectMethods.sortTasks(projectObj);
+        projectMethods.renderTasks(projectObj);
     });
 }
 
-const sortTaskss = ({tasks}) => {
-    tasks = tasks.sort((a,b) => {
-        if (b.dueDate > a.dueDate) {
-            return -1;
-        } else {
-            return 1;
-        }
-    });
-}
+// const sortTaskss = ({tasks}) => {
+//     tasks = tasks.sort((a,b) => {
+//         if (b.dueDate > a.dueDate) {
+//             return -1;
+//         } else {
+//             return 1;
+//         }
+//     });
+// }
 
-const renderTaskss = ({tasks}, projectObj) => {
-    tasks.forEach(task => addTaskToDOM(task, projectObj));
-}
+// const renderTaskss = ({tasks}, projectObj) => {
+//     tasks.forEach(task => addTaskToDOM(task, projectObj));
+// }
 
 // export function renderDropDown(array, arrayNumber) {
 //     const dropDownMenu = document.getElementById('project');

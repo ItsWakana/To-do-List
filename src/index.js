@@ -1,7 +1,7 @@
 import './style.css';
 import { openTaskInput, renderTaskForm } from './TaskDOM';
 import { closeModal, borderOnClick } from './utilities';
-import { projectNumCount, Project } from './projectLogic';
+import { projectNumCount, Project, projectMethods } from './projectLogic';
 import { addProjectToDOM } from './ProjectDOM';
 
 const createProject = document.querySelector('.create');

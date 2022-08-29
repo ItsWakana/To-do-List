@@ -24,7 +24,41 @@ export const Project = (title, id) => {
         tasks.push(task)
     }
 
-    const sortTasks = () => {
+    // const sortTasks = () => {
+    //     tasks = tasks.sort((a,b) => {
+    //         if (b.dueDate > a.dueDate) {
+    //             return -1;
+    //         } else {
+    //             return 1;
+    //         }
+    //     });
+    // }
+
+    // const renderTask = (projectObj) => {
+    //     tasks.forEach(task => addTaskToDOM(task, projectObj));
+    
+    // }
+
+    // const removeTask = (task) => {
+    //     const index = tasks.indexOf(task);
+    //     tasks.splice(index,1);
+    // }
+    
+    // return { title, id, tasks, renderTask, addTask, addProject, removeTask, sortTasks } 
+    return { title, id, tasks, addProject, addTask }
+}
+
+export const projectMethods = {
+
+    addProject: (array,project) => {
+        array.push(project);
+    },
+    addTask: (task, {tasks}) => {
+        task.id = tasks.length +1;
+        tasks.push(task);
+    
+    },
+    sortTasks: ({tasks}) => {
         tasks = tasks.sort((a,b) => {
             if (b.dueDate > a.dueDate) {
                 return -1;
@@ -32,19 +66,11 @@ export const Project = (title, id) => {
                 return 1;
             }
         });
-    }
-
-    const renderTask = (projectObj) => {
+    },
+    renderTasks: ({tasks}, projectObj) => {
         tasks.forEach(task => addTaskToDOM(task, projectObj));
-    
-    }
+    },
 
-    const removeTask = (task) => {
-        const index = tasks.indexOf(task);
-        tasks.splice(index,1);
-    }
-    
-    return { title, id, tasks, renderTask, addTask, addProject, removeTask, sortTasks } 
 }
 
 export const addTask = (task, {tasks}) => {
