@@ -1,8 +1,7 @@
 import { openModal, closeModal } from "./utilities";
-import { createTaskObj, projectMethods, addTask } from "./projectLogic";
+import { createTaskObj, projectMethods } from "./projectLogic";
 import { formatDistanceToNow } from "date-fns";
-import { numberForDropDown } from ".";
-import { projects } from ".";
+import { numberForDropDown, projects } from ".";
 import { createFormElement, createLabel, createNewElement, createNewImg, createOption, createSelectElement } from "./elementCreation";
 
 export function openTaskInput(modal) {
@@ -24,10 +23,10 @@ export function submitTheTask(projects) {
         closeModal(modal);
         return;
     }
-    if (document.querySelector('input[name="priority"]:checked') === null) {
-        alert('Please select a priority');
-        return;
-    }
+    // if (document.querySelector('input[name="priority"]:checked') === null) {
+    //     alert('Please select a priority');
+    //     return;
+    // }
 
     const task = getUserInputFromDOM();
 
@@ -37,8 +36,6 @@ export function submitTheTask(projects) {
 
     projects.forEach(project => {
         if (task.projectParent === project.title) {
-            // project.addTask(task);
-            // addTask(task, project);
             projectMethods.addTask(task, project);
             localStorage.setItem("projects", JSON.stringify(projects));
         }
@@ -73,7 +70,8 @@ export function addTaskToDOM(obj, projectObj) {
 
     deleteBtn.el.addEventListener('click', () => {
         newTask.el.remove();
-        projectObj.removeTask(obj);
+        projectMethods.removeTask(obj, projectObj);
+        localStorage.setItem("projects", JSON.stringify(projects));
     });
 
     if (obj.completed == true) {
@@ -107,14 +105,23 @@ export function renderTaskForm(container,projects,dropDownArray) {
     const form = createNewElement('form', 'inner', '');
     const title = createFormElement('input', 'text', 'title', 'title', 'Title');
     const textarea = createFormElement('textarea', undefined, 'desc', 'desc', 'Brief description of task');
-    const priorityContainer = createNewElement('div', 'priority', '');
 
-    for (let i=0; i<5; i++) {
+    // const priorityContainer = createNewElement('div', 'priority', '');
 
-        const label = createLabel('priority1', i+1);
-        priorityContainer.el.append(label.el);
-        const input = createFormElement('input', 'radio', 'priority', i +1, undefined);
-        priorityContainer.el.append(input.el);
+    // for (let i=0; i<5; i++) {
+
+    //     const label = createLabel('priority1', i+1);
+    //     priorityContainer.el.append(label.el);
+    //     const input = createFormElement('input', 'radio', 'priority', i +1, undefined);
+    //     priorityContainer.el.append(input.el);
+    // }
+
+    const prioritySelect = createSelectElement('priority', 'priority');
+
+    for (let i=0; i<3; i++) {
+        const titles = ['Low', 'Normal', 'High'];
+        const option = createOption(i, titles[i]);
+        prioritySelect.el.append(option.el);
     }
 
     const select = createSelectElement('project', 'project');
@@ -141,7 +148,7 @@ export function renderTaskForm(container,projects,dropDownArray) {
         })
     });
 
-    form.el.append(title.el,textarea.el,priorityContainer.el,select.el,date.el,submit.el);
+    form.el.append(title.el,textarea.el,prioritySelect.el,select.el,date.el,submit.el);
     container.append(form.el,closeIcon.el);
 }
 
@@ -264,12 +271,16 @@ export function renderTaskDetails(container,task) {
 export function getUserInputFromDOM() {
     const title = document.getElementById('title').value;
     const description = document.getElementById('desc').value;
-    const priority = document.querySelector('input[name="priority"]:checked').id;
+    // const priority = document.querySelector('input[name="priority"]:checked').id;
+
+    const priority = document.getElementById('priority');
+    const prioritySelection = priority.options[priority.selectedIndex].text;
+
     const projectSelection = document.getElementById('project');
     const projectParent = projectSelection.options[projectSelection.selectedIndex].text;
     const dueDate = document.getElementById('date').value;
     
-    const taskObj = createTaskObj(title,description,priority,
+    const taskObj = createTaskObj(title,description,prioritySelection,
         projectSelection,projectParent,dueDate);
     return taskObj;
 }

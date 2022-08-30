@@ -7,11 +7,9 @@ import { addProjectToDOM } from './ProjectDOM';
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
 
-// const projects = [];
 export const projects = JSON.parse(localStorage.getItem("projects")) || [];
 
 export let numberForDropDown = JSON.parse(localStorage.getItem("numberForDropDown")) || [];
-// export let numberForDropDown = [];
 
 createProject.addEventListener('click', () => {
     projectNumCount++;
