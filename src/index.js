@@ -8,7 +8,7 @@ const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.add-task');
 
 // const projects = [];
-const projects = JSON.parse(localStorage.getItem("projects")) || [];
+export const projects = JSON.parse(localStorage.getItem("projects")) || [];
 
 export let numberForDropDown = JSON.parse(localStorage.getItem("numberForDropDown")) || [];
 // export let numberForDropDown = [];

@@ -1,8 +1,8 @@
 import { openModal, closeModal } from "./utilities";
 import { createTaskObj, projectMethods, addTask } from "./projectLogic";
-
 import { formatDistanceToNow } from "date-fns";
 import { numberForDropDown } from ".";
+import { projects } from ".";
 import { createFormElement, createLabel, createNewElement, createNewImg, createOption, createSelectElement } from "./elementCreation";
 
 export function openTaskInput(modal) {
@@ -84,10 +84,13 @@ export function addTaskToDOM(obj, projectObj) {
         if (obj.completed == false) {
             newTask.el.classList.add('active');
             obj.completed = true;
+            localStorage.setItem("projects", JSON.stringify(projects));
             return;
         }
         obj.completed = false;
+        localStorage.setItem("projects", JSON.stringify(projects));
         newTask.el.classList.remove('active');
+
     });
 
     btnContainer.el.append(detailsButton.el, deleteBtn.el, editButton.el, completedIcon.el);
