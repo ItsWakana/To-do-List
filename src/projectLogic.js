@@ -42,7 +42,7 @@ export const projectMethods = {
     renderTasks: (projectObj) => {
         projectObj.tasks.forEach(task => addTaskToDOM(task, projectObj));
     },
-    removeTask: ({task}, {tasks}) => {
+    removeTask: (task, {tasks}) => {
         const index = tasks.indexOf(task);
         tasks.splice(index,1);
     }
