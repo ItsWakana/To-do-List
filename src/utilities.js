@@ -2,12 +2,8 @@ export function borderOnClick() {
 
     const projects = [...document.querySelectorAll('.project')];
 
-    projects.forEach(project => {
-        project.addEventListener('click', () => {
             projects.forEach(e => e.classList.remove('active'));
-            project.classList.add('active');
-        });
-    });
+            // project.classList.add('active');
 }
 
 export const openModal = (modal) => {

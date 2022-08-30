@@ -20,7 +20,6 @@ createProject.addEventListener('click', () => {
     projectObj.addProject(projects, projectObj);
     addProjectToDOM(projectObj);
     localStorage.setItem("projects", JSON.stringify(projects));
-    // borderOnClick();
     numberForDropDown.push(projectNumCount);
     localStorage.setItem("numberForDropDown", JSON.stringify(numberForDropDown));
 });

@@ -1,11 +1,13 @@
 import { Project, projectNumCount, projectMethods } from "./projectLogic";
 import { clearPreviousTasks, addTaskToDOM } from "./TaskDOM";
+import { borderOnClick } from "./utilities";
 
 export function addProjectToDOM(projectObj) {
 
     const projects = document.querySelector('.projects');
     const newProject = document.createElement('div');
     newProject.className = 'project';
+    newProject.classList.remove('active');
 
     const projectHeading = document.createElement('h3');
     projectHeading.innerText = projectObj.title;
@@ -16,13 +18,9 @@ export function addProjectToDOM(projectObj) {
     newProject.addEventListener('click', () => { 
         const container = document.querySelector('.tasks');
         clearPreviousTasks(container);
-
-        // projectObj.sortTasks();
-        // projectObj.renderTask(projectObj);
-        // sortTaskss(projectObj);
-        // renderTaskss(projectObj);
-        // projectMethods.sortTasks(projectObj);
         projectMethods.renderTasks(projectObj);
+        borderOnClick(projects);
+        newProject.classList.add('active');
     });
 }
 
