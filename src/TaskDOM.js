@@ -2,7 +2,7 @@ import { openModal, closeModal } from "./utilities";
 import { createTaskObj, projectMethods } from "./projectLogic";
 import { formatDistanceToNow } from "date-fns";
 import { numberForDropDown, projects } from ".";
-import { createFormElement, createLabel, createNewElement, createNewImg, createOption, createSelectElement } from "./elementCreation";
+import { createFormElement, createNewElement, createNewImg, createOption, createSelectElement } from "./elementCreation";
 
 export function openTaskInput(modal) {
     openModal(modal);
@@ -23,10 +23,6 @@ export function submitTheTask(projects) {
         closeModal(modal);
         return;
     }
-    // if (document.querySelector('input[name="priority"]:checked') === null) {
-    //     alert('Please select a priority');
-    //     return;
-    // }
 
     const task = getUserInputFromDOM();
 
@@ -63,7 +59,7 @@ export function addTaskToDOM(obj, projectObj) {
     });
 
     editButton.el.addEventListener('click', () => {
-        const container = document.querySelector('.task-details');
+        const container = document.querySelector('.task-form');
         renderTaskEditForm(container, obj, numberForDropDown);
 
     });
@@ -105,17 +101,6 @@ export function renderTaskForm(container,projects,dropDownArray) {
     const form = createNewElement('form', 'inner', '');
     const title = createFormElement('input', 'text', 'title', 'title', 'Title');
     const textarea = createFormElement('textarea', undefined, 'desc', 'desc', 'Brief description of task');
-
-    // const priorityContainer = createNewElement('div', 'priority', '');
-
-    // for (let i=0; i<5; i++) {
-
-    //     const label = createLabel('priority1', i+1);
-    //     priorityContainer.el.append(label.el);
-    //     const input = createFormElement('input', 'radio', 'priority', i +1, undefined);
-    //     priorityContainer.el.append(input.el);
-    // }
-
     const prioritySelect = createSelectElement('priority', 'priority');
 
     for (let i=0; i<3; i++) {
@@ -155,63 +140,36 @@ export function renderTaskForm(container,projects,dropDownArray) {
 export function renderTaskEditForm(container, taskObj, dropDownArray) {
     clearPreviousTasks(container);
 
-    const form = document.createElement('form');
-    form.className = 'inner';
+    const form = createNewElement('form', 'inner', '');
+    const title = createFormElement('input', 'text', 'title', 'title', 'Title');
+    title.el.value = taskObj.title;
 
-    const title = document.createElement('input');
-    title.type = 'text'; title.name = 'title'; title.id = 'title';
-    title.value = taskObj.title;
+    const textarea = createFormElement('textarea', undefined, 'desc', 'desc', 'Brief description of task');
+    textarea.el.value = taskObj.description;
+    const prioritySelect = createSelectElement('priority', 'priority');
 
-    const textarea = document.createElement('textarea');
-    textarea.name = 'desc'; textarea.id = 'desc'; 
-    textarea.value = taskObj.description;
-
-    const priorityContainer = document.createElement('div');
-    priorityContainer.className = 'priority';
-
-    for (let i=0; i<5; i++) {
-        const label = document.createElement('label');
-        label.for = 'priority1'
-        label.textContent = i +1;
-
-        priorityContainer.append(label);
-
-        const input = document.createElement('input');
-        input.type = 'radio'; input.name = 'priority'; input.id = i +1;
-
-        priorityContainer.append(input);
+    for (let i=0; i<3; i++) {
+        const titles = ['Low', 'Normal', 'High'];
+        const option = createOption(i, titles[i]);
+        prioritySelect.el.append(option.el);
     }
 
-    const select = document.createElement('select');
-    select.name = 'project'; select.id = 'project';
+    const date = createFormElement('input', 'date', 'date', 'date');
+    date.el.value = taskObj.dueDate;
 
-    for (let i=1; i<=dropDownArray.length; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.innerText = `Project ${i}`;
-        select.append(option);
-    }
-    
-    const date = document.createElement('input');
-    date.type = 'date'; date.name = 'date'; date.id = 'date';
-    date.value = taskObj.dueDate;
+    const edit = createNewElement('button', undefined, 'Edit task');
+    const closeIcon = createNewImg('img', 'icon', '../src/assets/close.svg');
 
-    const edit = document.createElement('button');
-    edit.innerText = 'Edit task';
-
-    const closeIcon = document.createElement('img');
-    closeIcon.className = 'icon';
-    closeIcon.src = '../src/assets/close.svg';
-
-    edit.addEventListener('click', (e) => {
+    edit.el.addEventListener('click', (e) => {
         e.preventDefault();
-        taskObj.title = title.value;
-        taskObj.description = textarea.value;
-        taskObj.dueDate = date.value;
+        taskObj.title = title.el.value;
+        taskObj.description = textarea.el.value;
+        taskObj.dueDate = date.el.value;
         closeModal(container);
+        localStorage.setItem("projects", JSON.stringify(projects));
     });
 
-    closeIcon.addEventListener('click', () => {
+    closeIcon.el.addEventListener('click', () => {
         const modals = document.querySelectorAll('.modal');
         modals.forEach(modal => {
             closeModal(modal);
@@ -221,10 +179,8 @@ export function renderTaskEditForm(container, taskObj, dropDownArray) {
     openModal(container);
 
 
-    form.append(title,textarea,priorityContainer,select,date,edit);
-    container.append(form,closeIcon);
-
-
+    form.el.append(title.el,textarea.el,prioritySelect.el,date.el,edit.el);
+    container.append(form.el,closeIcon.el);
 }
 
 export function renderTaskDetails(container,task) {
@@ -236,24 +192,19 @@ export function renderTaskDetails(container,task) {
     const dateHead = document.createElement('h3');
     const priorityHead = document.createElement('h3');
 
-    titleHead.innerText = 'Title:'
-    descHead.innerText = 'Description:'
-    dateHead.innerText = 'Due date:'
-    priorityHead.innerText = 'Priority:'
+    titleHead.innerText = 'Title:';
+    descHead.innerText = 'Description:';
+    dateHead.innerText = 'Due date:';
+    priorityHead.innerText = 'Priority:';
 
     const title = document.createElement('p');
     title.innerText = task.title;
-
     const desc = document.createElement('p');
     desc.innerText = task.description;
-
     const date = document.createElement('p');
-
     date.innerText = task.dueDate;
-
     const priority = document.createElement('p');
     priority.innerText = task.priority;
-
     const exitBtn = document.createElement('button');
     exitBtn.innerText = 'Close';
     exitBtn.className = 'close-button';
@@ -271,8 +222,6 @@ export function renderTaskDetails(container,task) {
 export function getUserInputFromDOM() {
     const title = document.getElementById('title').value;
     const description = document.getElementById('desc').value;
-    // const priority = document.querySelector('input[name="priority"]:checked').id;
-
     const priority = document.getElementById('priority');
     const prioritySelection = priority.options[priority.selectedIndex].text;
 
@@ -289,7 +238,7 @@ function timeTillTaskElement(obj) {
     const timeTillTask = document.createElement('p');
 
     const reworked = obj.dueDate;
-    const year = reworked.slice(0,4);
+    const year = reworked.slice(0,4); 
     const month = reworked.slice(5,7);
     const day = reworked.slice(8,11);
 
