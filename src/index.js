@@ -24,7 +24,6 @@ createProject.addEventListener('click', () => {
     numberForDropDown.push(projectNumCount);
     localStorage.setItem("numberForDropDown", JSON.stringify(numberForDropDown));
 });
-
 projects.forEach(addProjectToDOM);
 
 

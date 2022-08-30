@@ -37,9 +37,10 @@ export function submitTheTask(projects) {
 
     projects.forEach(project => {
         if (task.projectParent === project.title) {
-            project.addTask(task);
+            // project.addTask(task);
             // addTask(task, project);
-            // projectMethods.addTask(task, project);
+            projectMethods.addTask(task, project);
+            localStorage.setItem("projects", JSON.stringify(projects));
         }
     });
 

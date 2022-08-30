@@ -14,15 +14,17 @@ export let projectNumCount = 0;
 export const Project = (title, id) => {
 
     let tasks = [];
+    // let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     const addProject = (array,project) => {
         array.push(project);
     }
 
-    const addTask = (task) => {
-        task.id = tasks.length +1;
-        tasks.push(task)
-    }
+    // const addTask = (task) => {
+    //     task.id = tasks.length +1;
+    //     tasks.push(task)
+    //     // localStorage.setItem("tasks", JSON.stringify(tasks));
+    // }
 
     // const sortTasks = () => {
     //     tasks = tasks.sort((a,b) => {
@@ -45,7 +47,7 @@ export const Project = (title, id) => {
     // }
     
     // return { title, id, tasks, renderTask, addTask, addProject, removeTask, sortTasks } 
-    return { title, id, tasks, addProject, addTask }
+    return { title, id, tasks, addProject }
 }
 
 export const projectMethods = {
@@ -56,7 +58,6 @@ export const projectMethods = {
     addTask: (task, {tasks}) => {
         task.id = tasks.length +1;
         tasks.push(task);
-    
     },
     sortTasks: ({tasks}) => {
         tasks = tasks.sort((a,b) => {
