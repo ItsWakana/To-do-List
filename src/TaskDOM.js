@@ -137,7 +137,7 @@ export function renderTaskForm(container,projects,dropDownArray) {
     container.append(form.el,closeIcon.el);
 }
 
-export function renderTaskEditForm(container, taskObj, dropDownArray) {
+export function renderTaskEditForm(container, taskObj) {
     clearPreviousTasks(container);
 
     const form = createNewElement('form', 'inner', '');
@@ -148,10 +148,16 @@ export function renderTaskEditForm(container, taskObj, dropDownArray) {
     textarea.el.value = taskObj.description;
     const prioritySelect = createSelectElement('priority', 'priority');
 
+    const titles = ['Low', 'Normal', 'High'];
     for (let i=0; i<3; i++) {
-        const titles = ['Low', 'Normal', 'High'];
-        const option = createOption(i, titles[i]);
+        const option = createOption(titles[i], titles[i]);
         prioritySelect.el.append(option.el);
+    }
+
+    for(let i=0; i<3; i++) {
+        if (taskObj.priority === titles[i]) {
+            prioritySelect.el.selectedIndex = i;
+        }
     }
 
     const date = createFormElement('input', 'date', 'date', 'date');
@@ -165,6 +171,7 @@ export function renderTaskEditForm(container, taskObj, dropDownArray) {
         taskObj.title = title.el.value;
         taskObj.description = textarea.el.value;
         taskObj.dueDate = date.el.value;
+        taskObj.priority = titles[prioritySelect.el.selectedIndex];
         closeModal(container);
         localStorage.setItem("projects", JSON.stringify(projects));
     });
