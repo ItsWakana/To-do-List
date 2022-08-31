@@ -1,4 +1,4 @@
-import { openModal, closeModal } from "./utilities";
+import { openModal, closeModal, saveToLocalStorage } from "./utilities";
 import { createTaskObj, projectMethods } from "./projectLogic";
 import { formatDistanceToNow } from "date-fns";
 import { numberForDropDown, projects } from ".";
@@ -33,7 +33,7 @@ export function submitTheTask(projects) {
     projects.forEach(project => {
         if (task.projectParent === project.title) {
             projectMethods.addTask(task, project);
-            localStorage.setItem("projects", JSON.stringify(projects));
+            saveToLocalStorage("projects", projects);
         }
     });
 
@@ -67,7 +67,7 @@ export function addTaskToDOM(obj, projectObj) {
     deleteBtn.el.addEventListener('click', () => {
         newTask.el.remove();
         projectMethods.removeTask(obj, projectObj);
-        localStorage.setItem("projects", JSON.stringify(projects));
+        saveToLocalStorage("projects", projects);
     });
 
     if (obj.completed == true) {
@@ -78,11 +78,11 @@ export function addTaskToDOM(obj, projectObj) {
         if (obj.completed == false) {
             newTask.el.classList.add('active');
             obj.completed = true;
-            localStorage.setItem("projects", JSON.stringify(projects));
+            saveToLocalStorage("projects", projects);
             return;
         }
         obj.completed = false;
-        localStorage.setItem("projects", JSON.stringify(projects));
+        saveToLocalStorage("projects", projects);
         newTask.el.classList.remove('active');
 
     });
@@ -118,7 +118,7 @@ export function renderTaskForm(container,projects,dropDownArray) {
     }
 
     const date = createFormElement('input', 'date', 'date', 'date');
-    const submit = createNewElement('button', undefined, 'Add the task');
+    const submit = createNewElement('button', 'add-task', 'Add the task');
     const closeIcon = createNewImg('img', 'icon', '../src/assets/close.svg');
 
     submit.el.addEventListener('click', (e) => {
@@ -163,7 +163,7 @@ export function renderTaskEditForm(container, taskObj) {
     const date = createFormElement('input', 'date', 'date', 'date');
     date.el.value = taskObj.dueDate;
 
-    const edit = createNewElement('button', undefined, 'Edit task');
+    const edit = createNewElement('button', 'edit-task', 'Edit task');
     const closeIcon = createNewImg('img', 'icon', '../src/assets/close.svg');
 
     edit.el.addEventListener('click', (e) => {
@@ -173,7 +173,7 @@ export function renderTaskEditForm(container, taskObj) {
         taskObj.dueDate = date.el.value;
         taskObj.priority = titles[prioritySelect.el.selectedIndex];
         closeModal(container);
-        localStorage.setItem("projects", JSON.stringify(projects));
+        saveToLocalStorage("projects", projects);
     });
 
     closeIcon.el.addEventListener('click', () => {
