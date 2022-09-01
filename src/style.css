@@ -106,6 +106,18 @@ body {
     cursor: pointer;
 }
 
+.tasks > .task .delete-button {
+    background: hsl(0, 100%, 60%);
+    /* border: solid 2px var(--prjct-tsk-background-clr); */
+    transition: all 250ms;
+}
+
+/* .tasks > .task .delete-button:hover {
+    background: none;
+    color: hsl(0, 83%, 72%);
+    border: solid 2px hsl(0, 83%, 72%);
+} */
+
 .btn-container {
     display: flex;
     align-items: center;

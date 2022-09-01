@@ -32,7 +32,10 @@ export function submitTheTask(projects) {
 
     projects.forEach(project => {
         if (task.projectParent === project.title) {
+            const container = document.querySelector('.tasks');
+            clearPreviousTasks(container);
             projectMethods.addTask(task, project);
+            projectMethods.renderTasks(project);
             saveToLocalStorage("projects", projects);
         }
     });
@@ -87,7 +90,7 @@ export function addTaskToDOM(obj, projectObj) {
 
     });
 
-    btnContainer.el.append(detailsButton.el, deleteBtn.el, editButton.el, completedIcon.el);
+    btnContainer.el.append(detailsButton.el, editButton.el, deleteBtn.el, completedIcon.el);
 
     tasks.append(newTask.el);
     newTask.el.append(taskTitle.el,dueDate.el, timeTillTaskElement(obj), btnContainer.el);
@@ -174,6 +177,14 @@ export function renderTaskEditForm(container, taskObj) {
         taskObj.priority = titles[prioritySelect.el.selectedIndex];
         closeModal(container);
         saveToLocalStorage("projects", projects);
+
+        projects.forEach(project => {
+            if (taskObj.projectParent === project.title) {
+                const container = document.querySelector('.tasks');
+                clearPreviousTasks(container);
+                projectMethods.renderTasks(project);
+            }
+        });
     });
 
     closeIcon.el.addEventListener('click', () => {
