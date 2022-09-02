@@ -23,5 +23,6 @@ export function addProjectToDOM(projectObj) {
         borderOnClick(projects);
         newProject.classList.add('active');
         newProject.dataset.selected = true;
+
     });
 }

@@ -1,3 +1,5 @@
+import { formatDistanceToNow } from "date-fns";
+
 export function createNewElement(element,className = undefined, text = undefined) {
     const el = document.createElement(element);
     el.className = className;
@@ -47,4 +49,29 @@ export function createOption(value, text) {
     el.innerText = text;
 
     return { el }
+}
+
+export function timeTillTaskElement(obj) {
+    const el = document.createElement('p');
+
+    const reworked = obj.dueDate;
+    const year = reworked.slice(0,4); 
+    const month = reworked.slice(5,7);
+    const day = reworked.slice(8,11);
+
+    const result = formatDistanceToNow(new Date(year,month -1,day));
+    el.style.fontWeight = 'bold';
+    el.innerText = `To-do in ${result}`;
+
+    const setCountdown = () => {
+        el.innerText = `To-do in ${result}`;
+        el.style.color = 'white';
+    }
+
+    const setCompleted = () => {
+        el.innerText = 'Completed';
+        el.style.color = 'green';
+    }
+
+    return { el, setCountdown, setCompleted }
 }

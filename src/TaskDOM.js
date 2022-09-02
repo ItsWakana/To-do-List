@@ -1,8 +1,7 @@
 import { openModal, closeModal, saveToLocalStorage } from "./utilities";
 import { createTaskObj, projectMethods } from "./projectLogic";
-import { formatDistanceToNow } from "date-fns";
 import { numberForDropDown, projects } from ".";
-import { createFormElement, createNewElement, createNewImg, createOption, createSelectElement } from "./elementCreation";
+import { createFormElement, createNewElement, createNewImg, createOption, createSelectElement, statusOfTask, timeTillTaskElement } from "./elementCreation";
 
 export function openTaskInput(modal) {
     openModal(modal);
@@ -56,6 +55,7 @@ export function addTaskToDOM(obj, projectObj) {
     const editButton = createNewElement('button', 'edit-button', 'Edit');
     const completedIcon = createNewImg('img', 'icon', '../src/assets/tick.svg');
     const btnContainer = createNewElement('div', 'btn-container', '');
+    const timeTillTask = timeTillTaskElement(obj);
 
     detailsButton.el.addEventListener('click', () => {
         const container = document.querySelector('.task-details');
@@ -69,6 +69,7 @@ export function addTaskToDOM(obj, projectObj) {
     });
 
     deleteBtn.el.addEventListener('click', () => {
+        if (!confirm('Are you sure you want to delete this task?')) return;
         newTask.el.remove();
         projectMethods.removeTask(obj, projectObj);
         saveToLocalStorage("projects", projects);
@@ -80,21 +81,22 @@ export function addTaskToDOM(obj, projectObj) {
 
     completedIcon.el.addEventListener('click', () => {
         if (obj.completed == false) {
+            timeTillTask.setCompleted();
             newTask.el.classList.add('active');
             obj.completed = true;
             saveToLocalStorage("projects", projects);
             return;
         }
+        timeTillTask.setCountdown();
         obj.completed = false;
         saveToLocalStorage("projects", projects);
         newTask.el.classList.remove('active');
-
     });
 
     btnContainer.el.append(detailsButton.el, editButton.el, deleteBtn.el, completedIcon.el);
 
     tasks.append(newTask.el);
-    newTask.el.append(taskTitle.el,dueDate.el, timeTillTaskElement(obj), btnContainer.el);
+    newTask.el.append(taskTitle.el,dueDate.el, timeTillTask.el, btnContainer.el);
 }
 
 
@@ -251,19 +253,4 @@ export function getUserInputFromDOM() {
     const taskObj = createTaskObj(title,description,prioritySelection,
         projectSelection,projectParent,dueDate);
     return taskObj;
-}
-
-function timeTillTaskElement(obj) {
-    const timeTillTask = document.createElement('p');
-
-    const reworked = obj.dueDate;
-    const year = reworked.slice(0,4); 
-    const month = reworked.slice(5,7);
-    const day = reworked.slice(8,11);
-
-    const result = formatDistanceToNow(new Date(year,month -1,day))
-    timeTillTask.style.fontWeight = 'bold';
-    timeTillTask.innerText = `To-do in ${result}`;
-
-    return timeTillTask;
 }

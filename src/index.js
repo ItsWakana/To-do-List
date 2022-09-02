@@ -5,7 +5,7 @@ import { projectNumCount, Project } from './projectLogic';
 import { addProjectToDOM } from './ProjectDOM';
 
 const createProject = document.querySelector('.create');
-const taskButton = document.querySelector('.add-task');
+const taskButton = document.querySelector('.create-task');
 export const projects = JSON.parse(localStorage.getItem("projects")) || [];
 export let numberForDropDown = JSON.parse(localStorage.getItem("numberForDropDown")) || [];
 
