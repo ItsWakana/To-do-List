@@ -6,6 +6,7 @@ export function addProjectToDOM(projectObj) {
 
     const projects = document.querySelector('.projects');
     const newProject = document.createElement('div');
+    newProject.dataset.selected = false;
     newProject.className = 'project';
     newProject.classList.remove('active');
 
@@ -21,5 +22,6 @@ export function addProjectToDOM(projectObj) {
         projectMethods.renderTasks(projectObj);
         borderOnClick(projects);
         newProject.classList.add('active');
+        newProject.dataset.selected = true;
     });
 }

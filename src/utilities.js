@@ -1,7 +1,11 @@
 export function borderOnClick() {
 
     const projects = [...document.querySelectorAll('.project')];
-            projects.forEach(e => e.classList.remove('active'));
+            // projects.forEach(project => e.classList.remove('active'));
+            projects.forEach(project => {
+                project.classList.remove('active');
+                project.dataset.selected = false;
+            });
 }
 
 export const openModal = (modal) => {

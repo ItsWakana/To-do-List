@@ -26,7 +26,7 @@ export function submitTheTask(projects) {
 
     const task = getUserInputFromDOM();
 
-    if (task.title === '') {
+    if (task.title === '' || task.dueDate === '') {
         return;
     }
 
@@ -35,6 +35,7 @@ export function submitTheTask(projects) {
             const container = document.querySelector('.tasks');
             clearPreviousTasks(container);
             projectMethods.addTask(task, project);
+            projectMethods.sortTasks(project);
             projectMethods.renderTasks(project);
             saveToLocalStorage("projects", projects);
         }
