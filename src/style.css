@@ -97,6 +97,7 @@ body {
     background-color: var(--popup-bg-clr);
     color: var(--main-font-clr);
     border: solid 4px var(--background-clr);
+    transition: 500ms;
 }
 
 .task.active {

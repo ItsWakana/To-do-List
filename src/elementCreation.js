@@ -61,8 +61,13 @@ export function timeTillTaskElement(obj) {
 
     const result = formatDistanceToNow(new Date(year,month -1,day));
     el.style.fontWeight = 'bold';
-    el.innerText = `To-do in ${result}`;
 
+    if (obj.completed === false) {
+    el.innerText = `To-do in ${result}`;
+    } else {
+        el.innerText = 'Completed';
+        el.style.color = 'green';
+    }
     const setCountdown = () => {
         el.innerText = `To-do in ${result}`;
         el.style.color = 'white';
