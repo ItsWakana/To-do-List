@@ -48,9 +48,3 @@ export const projectMethods = {
     }
 
 }
-
-export const addTask = (task, {tasks}) => {
-    task.id = tasks.length +1;
-    tasks.push(task);
-
-}

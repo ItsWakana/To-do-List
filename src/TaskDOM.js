@@ -1,7 +1,7 @@
 import { openModal, closeModal, saveToLocalStorage } from "./utilities";
 import { createTaskObj, projectMethods } from "./projectLogic";
 import { numberForDropDown, projects } from ".";
-import { createFormElement, createNewElement, createNewImg, createOption, createSelectElement, statusOfTask, timeTillTaskElement } from "./elementCreation";
+import { createFormElement, createNewElement, createNewImg, createOption, createSelectElement, timeTillTaskElement } from "./elementCreation";
 
 export function openTaskInput(modal) {
     openModal(modal);

@@ -3,7 +3,6 @@ import { openTaskInput, renderTaskForm } from './TaskDOM';
 import { closeModal, saveToLocalStorage } from './utilities';
 import { projectNumCount, Project } from './projectLogic';
 import { addProjectToDOM } from './ProjectDOM';
-import { timeTillTaskElement } from './elementCreation';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.create-task');
