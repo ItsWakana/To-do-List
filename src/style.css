@@ -121,6 +121,10 @@ body {
     cursor: pointer;
 }
 
+.task-details > .close-button {
+    margin-top: 10px;
+}
+
 .tasks > .task .delete-button {
     background: hsl(0, 100%, 60%);
     /* border: solid 2px var(--prjct-tsk-background-clr); */
@@ -207,8 +211,9 @@ body {
 .task-form .inner {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    align-items: flex-start;
+    gap: 5px;
+    color: white;
 }
 
 .inner > #priority,
@@ -221,7 +226,7 @@ body {
     color: white;
     border-radius: 5px;
     border: none;
-    border-bottom: solid 1px var(--main-font-clr);
+    border: solid 1px var(--main-font-clr);
     padding: 5px 0 0 5px;
 }
 

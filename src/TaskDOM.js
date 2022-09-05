@@ -1,7 +1,7 @@
 import { openModal, closeModal, saveToLocalStorage } from "./utilities";
 import { createTaskObj, projectMethods } from "./projectLogic";
 import { numberForDropDown, projects } from ".";
-import { createFormElement, createNewElement, createNewImg, createOption, createSelectElement, timeTillTaskElement } from "./elementCreation";
+import { createFormElement, createLabel, createNewElement, createNewImg, createOption, createSelectElement, timeTillTaskElement } from "./elementCreation";
 
 export function openTaskInput(modal) {
     openModal(modal);
@@ -105,8 +105,11 @@ export function renderTaskForm(container,projects,dropDownArray) {
     clearPreviousTasks(container);
 
     const form = createNewElement('form', 'inner', '');
+    const titleLabel = createLabel('title', 'Title:')
     const title = createFormElement('input', 'text', 'title', 'title', 'Title');
+    const textareaLabel = createLabel('desc', 'Description:');
     const textarea = createFormElement('textarea', undefined, 'desc', 'desc', 'Brief description of task');
+    const priorityLabel = createLabel('priority', 'Priority:');
     const prioritySelect = createSelectElement('priority', 'priority');
 
     for (let i=0; i<3; i++) {
@@ -114,7 +117,7 @@ export function renderTaskForm(container,projects,dropDownArray) {
         const option = createOption(i, titles[i]);
         prioritySelect.el.append(option.el);
     }
-
+    const projectSelectLabel = createLabel('project', 'Project:');
     const select = createSelectElement('project', 'project');
 
     for (let i=1; i<=dropDownArray.length; i++) {
@@ -123,6 +126,7 @@ export function renderTaskForm(container,projects,dropDownArray) {
         select.el.append(option.el);
     }
 
+    const dateLabel = createLabel('date', 'Due date:');
     const date = createFormElement('input', 'date', 'date', 'date');
     const submit = createNewElement('button', 'add-task', 'Add the task');
     const closeIcon = createNewImg('img', 'icon', '../src/assets/close.svg');
@@ -139,7 +143,7 @@ export function renderTaskForm(container,projects,dropDownArray) {
         })
     });
 
-    form.el.append(title.el,textarea.el,prioritySelect.el,select.el,date.el,submit.el);
+    form.el.append(titleLabel.el,title.el,textareaLabel.el,textarea.el,priorityLabel.el,prioritySelect.el,projectSelectLabel.el,select.el,dateLabel.el,date.el,submit.el);
     container.append(form.el,closeIcon.el);
 }
 
