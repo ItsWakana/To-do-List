@@ -121,6 +121,10 @@ body {
     cursor: pointer;
 }
 
+.inner > .add-task {
+    margin-top: 15px;
+}
+
 .task-details > .close-button {
     margin-top: 10px;
 }
@@ -216,22 +220,24 @@ body {
     color: white;
 }
 
-.inner > #priority,
-.inner > #project,
-.inner > #date,
-.inner > input,
-.inner > textarea {
+.inner :is(#priority, #project, #date, input, textarea) {
     width: 100%;
     background: none;
     color: white;
     border-radius: 5px;
     border: none;
     border: solid 1px var(--main-font-clr);
-    padding: 5px 0 0 5px;
+    padding: 5px 0 5px 5px;
+
 }
 
 .inner > textarea {
     border: solid 1px var(--main-font-clr);
+}
+
+.inner > textarea:focus,
+.inner > input:focus {
+    outline: solid 3px var(--prjct-tsk-background-clr);
 }
 
 .task-form input::placeholder,
@@ -269,12 +275,16 @@ body {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     font-size: 14px;
-    width: 135px;
+    /* width: 135px; */
     font-weight: bold;
     box-shadow: 0px 0px 0px white;
     transition: box-shadow 500ms;
     color: var(--btn-font-clr);
 }
+/* 
+.add-task {
+    margin-top: 20px;
+} */
 
 .create:hover,
 .create-task:hover {

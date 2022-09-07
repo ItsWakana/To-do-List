@@ -16,7 +16,7 @@ export function createNewImg(element,className = undefined, source) {
     return { el }
 }
 
-export function createFormElement(element, eleType, eleName, id, elePlaceholder) {
+export function createFormElement(element, eleType, eleName, id, elePlaceholder = '') {
     const el = document.createElement(element);
     el.setAttribute('type',eleType);
     el.setAttribute('name', eleName);
