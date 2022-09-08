@@ -1,8 +1,9 @@
-import { projectMethods } from "./projectLogic";
+import { projectMethods, Project } from "./projectLogic";
 import { clearPreviousTasks } from "./TaskDOM";
-import { borderOnClick } from "./utilities";
+import { borderOnClick, saveToLocalStorage } from "./utilities";
 import { createFormElement, createNewElement, createNewImg } from "./elementCreation";
 import plus from './assets/plus.svg';
+import { projects, numberForDropDown } from ".";
 
 export function addProjectToDOM(projectObj) {
 
@@ -41,10 +42,26 @@ export function renderTitleInput() {
     inputContainer.el.append(input.el,plusIcon.el);
 
     
-    const projectTitle = getProjectTitleName(input);
-    return projectTitle;
+
+    plusIcon.el.addEventListener('click', () => {
+        const projectTitle = getProjectTitleName(input.el);
+        const projectObj = Project(projectTitle);
+        projectObj.addProject(projects, projectObj);
+        addProjectToDOM(projectObj);
+        saveToLocalStorage("projects", projects);
+
+        numberForDropDown.push(projectTitle);
+        console.log(numberForDropDown);
+        saveToLocalStorage("numberForDropDown", numberForDropDown);
+        clearProjectTitle(input.el);
+
+    });
 }
 
-export function getProjectTitleName(inputElement) {
+function getProjectTitleName(inputElement) {
     return inputElement.value;
+}
+
+function clearProjectTitle(inputElement) {
+    inputElement.value = '';
 }

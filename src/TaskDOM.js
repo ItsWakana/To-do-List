@@ -123,11 +123,14 @@ export function renderTaskForm(container,projects,dropDownArray) {
     const projectSelectLabel = createLabel('project', 'Project');
     const select = createSelectElement('project', 'project');
 
-    for (let i=1; i<=dropDownArray.length; i++) {
-
-        const option = createOption(i, `Project ${i}`);
+    // for (let i=0; i<=dropDownArray.length; i++) {
+    //     const option = createOption(i, dropDownArray[i]);
+    //     select.el.append(option.el);
+    // }
+    dropDownArray.forEach((item,i) => {
+        const option = createOption(i, item);
         select.el.append(option.el);
-    }
+    });
 
     const dateLabel = createLabel('date', 'Due date');
     const date = createFormElement('input', 'date', 'date', 'date');

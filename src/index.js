@@ -10,18 +10,18 @@ export const projects = JSON.parse(localStorage.getItem("projects")) || [];
 export let numberForDropDown = JSON.parse(localStorage.getItem("numberForDropDown")) || [];
 
 createProject.addEventListener('click', () => {
-    renderTitleInput();
     if (projects.length === 5) {
-     return;       
-    }
-    projectNumCount++;
-    saveToLocalStorage("projectNumCount", projectNumCount);
-    const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
-    projectObj.addProject(projects, projectObj);
-    addProjectToDOM(projectObj);
-    saveToLocalStorage("projects", projects);
-    numberForDropDown.push(projectNumCount);
-    saveToLocalStorage("numberForDropDown", numberForDropDown);
+        alert('Too many projects already');
+        return;       
+       }
+    renderTitleInput();
+    // projectNumCount++;
+    // saveToLocalStorage("projectNumCount", projectNumCount);
+    // const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
+    // projectObj.addProject(projects, projectObj);
+    // addProjectToDOM(projectObj);
+    // numberForDropDown.push(projectNumCount);
+    // saveToLocalStorage("numberForDropDown", numberForDropDown);
 });
 projects.forEach(addProjectToDOM);
 
