@@ -52,8 +52,18 @@ body {
 } */
 
 .projects {
+    position: relative;
     max-height: 45%;
     margin-bottom: 20px;
+    padding-top: 60px;
+}
+
+.input-container {
+    display: flex;
+    gap: 12px;
+    position: fixed;
+    top: 0;
+    transform: translateY(70px);
 }
 
 .projects > .project {
@@ -80,6 +90,12 @@ body {
 }
 .project.active::after {
     width: 85%;
+}
+
+#project-name {
+    border-radius: 5px;
+    border: none;
+    padding: 5px 0px 5px 20px;
 }
 
 .tasks > .task {
@@ -131,15 +147,8 @@ body {
 
 .tasks > .task .delete-button {
     background: hsl(0, 100%, 60%);
-    /* border: solid 2px var(--prjct-tsk-background-clr); */
     transition: all 250ms;
 }
-
-/* .tasks > .task .delete-button:hover {
-    background: none;
-    color: hsl(0, 83%, 72%);
-    border: solid 2px hsl(0, 83%, 72%);
-} */
 
 .btn-container {
     display: flex;
@@ -167,8 +176,6 @@ body {
 
 .task-details.active {
     position: fixed;
-    /* width: 40%;
-    height: 60%; */
     background-color: var(--popup-bg-clr);
     color: var(--main-font-clr);
     transform: scale(1);
@@ -200,12 +207,12 @@ body {
     right: 0;
 }
 
-.icon {
+.icon,
+.plus-icon {
     width: 20px;
     cursor: pointer;
     filter: invert(100%) sepia(71%) saturate(0%) hue-rotate(206deg) brightness(106%) contrast(107%);
 }
-
 
 .task-form {
     padding: 35px 35px;

@@ -2,7 +2,7 @@ import './style.css';
 import { openTaskInput, renderTaskForm } from './TaskDOM';
 import { closeModal, saveToLocalStorage } from './utilities';
 import { projectNumCount, Project } from './projectLogic';
-import { addProjectToDOM } from './ProjectDOM';
+import { addProjectToDOM, renderTitleInput } from './ProjectDOM';
 
 const createProject = document.querySelector('.create');
 const taskButton = document.querySelector('.create-task');
@@ -10,6 +10,7 @@ export const projects = JSON.parse(localStorage.getItem("projects")) || [];
 export let numberForDropDown = JSON.parse(localStorage.getItem("numberForDropDown")) || [];
 
 createProject.addEventListener('click', () => {
+    renderTitleInput();
     if (projects.length === 5) {
      return;       
     }

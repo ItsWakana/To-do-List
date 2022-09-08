@@ -104,8 +104,6 @@ export function addTaskToDOM(taskObj, projectObj) {
     newTask.el.append(taskTitle.el,dueDateElement.el, timeTillTask.el, btnContainer.el);
 }
 
-
-
 export function renderTaskForm(container,projects,dropDownArray) {
     clearPreviousTasks(container);
 
