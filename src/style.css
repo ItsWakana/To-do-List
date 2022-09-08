@@ -118,6 +118,7 @@ body {
 
 .task.active {
     opacity: .6;
+    pointer-events: none;
 }
 
 .tasks > .task .details-btn,

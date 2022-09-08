@@ -1,7 +1,6 @@
 import './style.css';
 import { openTaskInput, renderTaskForm } from './TaskDOM';
-import { closeModal, saveToLocalStorage } from './utilities';
-import { projectNumCount, Project } from './projectLogic';
+import { closeModal } from './utilities';
 import { addProjectToDOM, renderTitleInput } from './ProjectDOM';
 
 const createProject = document.querySelector('.create');
@@ -15,13 +14,6 @@ createProject.addEventListener('click', () => {
         return;       
        }
     renderTitleInput();
-    // projectNumCount++;
-    // saveToLocalStorage("projectNumCount", projectNumCount);
-    // const projectObj = Project(`Project ${projectNumCount}`, projectNumCount);
-    // projectObj.addProject(projects, projectObj);
-    // addProjectToDOM(projectObj);
-    // numberForDropDown.push(projectNumCount);
-    // saveToLocalStorage("numberForDropDown", numberForDropDown);
 });
 projects.forEach(addProjectToDOM);
 

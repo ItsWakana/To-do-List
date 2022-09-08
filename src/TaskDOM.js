@@ -85,6 +85,10 @@ export function addTaskToDOM(taskObj, projectObj) {
     }
 
     completedIcon.el.addEventListener('click', () => {
+        if (!confirm('Are you sure you want to mark this task as completed?')) return;
+        detailsButton.el.remove();
+        editButton.el.remove();
+        deleteBtn.el.remove();
         if (taskObj.completed == false) {
             timeTillTask.setCompleted();
             newTask.el.classList.add('active');
@@ -100,8 +104,15 @@ export function addTaskToDOM(taskObj, projectObj) {
 
     btnContainer.el.append(detailsButton.el, editButton.el, deleteBtn.el, completedIcon.el);
 
+
     tasks.append(newTask.el);
     newTask.el.append(taskTitle.el,dueDateElement.el, timeTillTask.el, btnContainer.el);
+    
+    if (taskObj.completed === true) {
+        deleteBtn.el.remove();
+        detailsButton.el.remove();
+        editButton.el.remove();
+    }
 }
 
 export function renderTaskForm(container,projects,dropDownArray) {
