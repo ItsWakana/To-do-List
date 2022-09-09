@@ -24,8 +24,6 @@ body {
     flex-direction: column;
     background-color: var(--background-clr);
     align-items: center;
-    /* position: relative; */
-    /* margin-top: 50px; */
     height: 100vh;
 }
 
@@ -47,14 +45,15 @@ body {
     border-bottom-left-radius: 5px;
     overflow: scroll;
 }
-/* .projects {
-    flex-direction: column;
-} */
 
 .projects {
     position: relative;
     max-height: 45%;
     margin-bottom: 20px;
+    transition: padding-top 500ms;
+}
+
+.projects.active {
     padding-top: 60px;
 }
 
@@ -283,16 +282,11 @@ body {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     font-size: 14px;
-    /* width: 135px; */
     font-weight: bold;
     box-shadow: 0px 0px 0px white;
     transition: box-shadow 500ms;
     color: var(--btn-font-clr);
 }
-/* 
-.add-task {
-    margin-top: 20px;
-} */
 
 .create:hover,
 .create-task:hover {

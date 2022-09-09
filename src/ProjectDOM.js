@@ -32,6 +32,7 @@ export function addProjectToDOM(projectObj) {
 
 export function renderTitleInput() {
     const container = document.querySelector('.projects');
+    container.classList.add('active');
 
     const inputContainer = createNewElement('div', 'input-container', '');
     const input = createFormElement('input', 'text', 'project-name', 'project-name', 'Project title');
@@ -44,7 +45,13 @@ export function renderTitleInput() {
     
 
     plusIcon.el.addEventListener('click', () => {
+        container.classList.remove('active');
         const projectTitle = getProjectTitleName(input.el);
+        if (projectTitle === '') {
+            container.classList.add('active');
+            
+            return;
+        }
         const projectObj = Project(projectTitle);
         projectObj.addProject(projects, projectObj);
         addProjectToDOM(projectObj);
@@ -54,6 +61,7 @@ export function renderTitleInput() {
         console.log(numberForDropDown);
         saveToLocalStorage("numberForDropDown", numberForDropDown);
         clearProjectTitle(input.el);
+        container.removeChild(inputContainer.el);
 
     });
 }

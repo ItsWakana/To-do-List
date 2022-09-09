@@ -9,7 +9,7 @@ export const projects = JSON.parse(localStorage.getItem("projects")) || [];
 export let numberForDropDown = JSON.parse(localStorage.getItem("numberForDropDown")) || [];
 
 createProject.addEventListener('click', () => {
-    if (projects.length === 5) {
+    if (projects.length === 8) {
         alert('Too many projects already');
         return;       
        }

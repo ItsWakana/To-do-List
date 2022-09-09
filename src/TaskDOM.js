@@ -107,7 +107,7 @@ export function addTaskToDOM(taskObj, projectObj) {
 
     tasks.append(newTask.el);
     newTask.el.append(taskTitle.el,dueDateElement.el, timeTillTask.el, btnContainer.el);
-    
+
     if (taskObj.completed === true) {
         deleteBtn.el.remove();
         detailsButton.el.remove();
@@ -134,10 +134,6 @@ export function renderTaskForm(container,projects,dropDownArray) {
     const projectSelectLabel = createLabel('project', 'Project');
     const select = createSelectElement('project', 'project');
 
-    // for (let i=0; i<=dropDownArray.length; i++) {
-    //     const option = createOption(i, dropDownArray[i]);
-    //     select.el.append(option.el);
-    // }
     dropDownArray.forEach((item,i) => {
         const option = createOption(i, item);
         select.el.append(option.el);
@@ -229,36 +225,25 @@ export function renderTaskDetails(container,task) {
 
     clearPreviousTasks(container);
 
-    const titleHead = document.createElement('h3');
-    const descHead = document.createElement('h3');
-    const dateHead = document.createElement('h3');
-    const priorityHead = document.createElement('h3');
+    const titleHead = createNewElement('h3', undefined, 'Title:');
+    const descHead = createNewElement('h3', undefined, 'Description:');
+    const dateHead = createNewElement('h3', undefined, 'Due date:');
+    const priorityHead = createNewElement('h3', undefined, 'Priority:');
 
-    titleHead.innerText = 'Title:';
-    descHead.innerText = 'Description:';
-    dateHead.innerText = 'Due date:';
-    priorityHead.innerText = 'Priority:';
+    const title = createNewElement('p', undefined, task.title);
+    const desc = createNewElement('p', undefined, task.description);
+    const date = createNewElement('p', undefined, task.dueDate);
+    const priority = createNewElement('p', undefined, task.priority);
+    const exitBtn = createNewElement('button', 'close-button', 'Close');
 
-    const title = document.createElement('p');
-    title.innerText = task.title;
-    const desc = document.createElement('p');
-    desc.innerText = task.description;
-    const date = document.createElement('p');
-    date.innerText = task.dueDate;
-    const priority = document.createElement('p');
-    priority.innerText = task.priority;
-    const exitBtn = document.createElement('button');
-    exitBtn.innerText = 'Close';
-    exitBtn.className = 'close-button';
-
-    exitBtn.addEventListener('click', () => {
+    exitBtn.el.addEventListener('click', () => {
         closeModal(container);
     });
     
     openModal(container);
 
-    container.append(titleHead,title,descHead,desc,
-        dateHead,date,priorityHead,priority, exitBtn);
+    container.append(titleHead.el,title.el,descHead.el,desc.el,
+        dateHead.el,date.el,priorityHead.el,priority.el, exitBtn.el);
 }
 
 export function getUserInputFromDOM() {
