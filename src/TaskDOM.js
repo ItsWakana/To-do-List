@@ -187,7 +187,7 @@ export function renderTaskEditForm(container, taskObj) {
     date.el.value = taskObj.dueDate;
 
     const edit = createNewElement('button', 'edit-task', 'Edit task');
-    const closeIcon = createNewImg('img', 'icon', '../src/assets/close.svg');
+    const closeIcon = createNewImg('img', 'icon', close);
 
     edit.el.addEventListener('click', (e) => {
         e.preventDefault();
